@@ -32,7 +32,7 @@ export const ParticlesContainer = () => {
     () => ({
       background: {
         color: {
-          value: "#0d47a1",
+          value: "#002366",
         },
       },
       fpsLimit: 120,
@@ -75,14 +75,14 @@ export const ParticlesContainer = () => {
             default: OutMode.out,
           },
           random: false,
-          speed: 6,
+          speed: 2,
           straight: false,
         },
         number: {
           density: {
             enable: true,
           },
-          value: 80,
+          value: 50,
         },
         opacity: {
           value: 0.5,

@@ -1,7 +1,6 @@
 // pages/index.tsx
 'use client'
 import React from 'react';
-import Head from 'next/head';
 import {ParticlesContainer} from './components/Particles';
 
 const Home: React.FC = () => {
