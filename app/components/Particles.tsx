@@ -2,8 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { type Container, type ISourceOptions, MoveDirection, OutMode } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
+import React, { memo } from 'react';
 
-export const ParticlesContainer = () => {
+export const ParticlesContainer = memo(() => {
   const [init, setInit] = useState(false);
 
   useEffect(() => {
@@ -26,11 +27,11 @@ export const ParticlesContainer = () => {
 
   const options: ISourceOptions = useMemo(
     () => ({
-      background: {
-        color: {
-          value: "#000000",
-        },
-      },
+      // background: {
+      //   color: {
+      //     value: "#000000",
+      //   },
+      // },
       fpsLimit: 60,
       interactivity: {
         events: {
@@ -108,4 +109,4 @@ export const ParticlesContainer = () => {
   }
 
   return <></>;
-};
+});
