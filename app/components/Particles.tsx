@@ -110,3 +110,5 @@ export const ParticlesContainer = memo(() => {
 
   return <></>;
 });
+
+ParticlesContainer.displayName = 'ParticlesContainer';
