@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import {ParticlesContainer} from './components/Particles'; // предположим, что вы уже обернули этот компонент в React.memo
-import {TelegramAuth} from './components/TelegramAuth';
+import TelegramAuth from './components/TelegramAuth';
 
 const Home: React.FC = () => {
     const [score, setScore] = useState(0);

@@ -40,7 +40,7 @@ export const ParticlesContainer = memo(() => {
           //   mode: "push",
           // },
           onHover: {
-            enable: true,
+            enable: false,
             mode: "repulse",
           },
         },
