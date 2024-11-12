@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import {ParticlesContainer} from './components/Particles'; // предположим, что вы уже обернули этот компонент в React.memo
+import {TelegramAuth} from './components/TelegramAuth';
 
 const Home: React.FC = () => {
     const [score, setScore] = useState(0);
@@ -11,6 +12,7 @@ const Home: React.FC = () => {
     
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
+            <TelegramAuth />
             <ParticlesContainer />
             <div
                 className="flex items-center justify-center min-h-screen"
