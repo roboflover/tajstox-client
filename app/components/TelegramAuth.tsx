@@ -1,16 +1,61 @@
-import React, { useEffect } from 'react';
+'use client'
 
+import React, { useEffect, useState } from 'react';
+import { isDevelopment, mockTelegramData, objectToQueryString } from './config'
+import axios from "axios";
+1
 const TelegramAuth: React.FC = () => {
-  useEffect(() => {
-    // This code will only run in the browser
-    if (typeof window !== 'undefined' && typeof window.Telegram !== 'undefined') {
-      const tgInfo = window.Telegram.WebApp.initData;
-      console.log(tgInfo);
+  const [token, setToken] = useState<string | null>(null);
+  const [telegramInitData, setTelegramInitData] = useState<string>('setTelegramInitData');
+  
+  const authenticateUser = async (initData: string) => {
+    try {
+      const response = await axios.get(`/api/authenticate`, {
+        params: {
+          initData: initData
+        }
+      });
+    
+      if (response.status !== 200) {
+        throw new Error('Failed to authenticate');
+      }
+    
+      const data = ''//response.data;
+      setToken(data);
+    } catch (error) {
+      console.error('Authentication failed:', error);
     }
-  }, []); // Empty dependency array ensures this runs once after initial render
+  }
+  
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (isDevelopment) {
+        // Используем тестовые данные в режиме разработки
+        console.log(mockTelegramData);
+        setTelegramInitData(objectToQueryString(mockTelegramData))
+      } else if (typeof window.Telegram !== 'undefined') {
+        // Используем реальные данные в продакшн-режиме
+        const tgInfo = window.Telegram.WebApp.initData;
+        console.log(tgInfo)
+        setTelegramInitData(tgInfo)
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://telegram.org/js/telegram-web-app.js';
+    script.defer = true;
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
 
   return (
     <div className="">
+          <button onClick={() => authenticateUser(telegramInitData)}>Кнопка</button>
       {/* Your component content */}
     </div>
   );
