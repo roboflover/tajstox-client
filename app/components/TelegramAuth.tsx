@@ -6,7 +6,7 @@ import axios from "axios";
 1
 const TelegramAuth: React.FC = () => {
   const [token, setToken] = useState<string | null>(null);
-  const [telegramInitData, setTelegramInitData] = useState<string>('setTelegramInitData');
+  const [telegramInitData, setTelegramInitData] = useState<string>('null');
   
   const authenticateUser = async (initData: string) => {
     try {
@@ -31,12 +31,12 @@ const TelegramAuth: React.FC = () => {
     if (typeof window !== 'undefined') {
       if (isDevelopment) {
         // Используем тестовые данные в режиме разработки
-        console.log(mockTelegramData);
+        console.log('mockTelegramData', mockTelegramData);
         setTelegramInitData(objectToQueryString(mockTelegramData))
       } else if (typeof window.Telegram !== 'undefined') {
         // Используем реальные данные в продакшн-режиме
         const tgInfo = window.Telegram.WebApp.initData;
-        console.log(tgInfo)
+        console.log('tgInfo', tgInfo)
         setTelegramInitData(tgInfo)
       }
     }

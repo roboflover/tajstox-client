@@ -1,6 +1,6 @@
 // config.ts
 export const isDevelopment = false // process.env.NODE_ENV === 'development';
-console.log(process.env.NODE_ENV)
+// console.log(process.env.NODE_ENV)
 
 export const mockTelegramData = {
   query_id: 'AAGjGFYvAwAAAKMYVi8sWTYy',
