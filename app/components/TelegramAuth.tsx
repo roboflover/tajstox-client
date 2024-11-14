@@ -28,18 +28,13 @@ const TelegramAuth: React.FC = () => {
   }
   
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (isDevelopment) {
-        // Используем тестовые данные в режиме разработки
-        console.log('mockTelegramData', mockTelegramData);
-        setTelegramInitData(objectToQueryString(mockTelegramData))
-      } else if (typeof window.Telegram !== 'undefined') {
-        // Используем реальные данные в продакшн-режиме
-        const tgInfo = window.Telegram.WebApp.initData;
-        console.log('tgInfo', tgInfo)
-        setTelegramInitData(tgInfo)
-      }
+    if (typeof window !== 'undefined' && 'Telegram' in window && window.Telegram) {
+      // Используем реальные данные в продакшн-режиме
+      const tgInfo = window.Telegram.WebApp.initData;
+      console.log('tgInfo', tgInfo);
+      setTelegramInitData(tgInfo);
     }
+    
   }, []);
 
   useEffect(() => {
