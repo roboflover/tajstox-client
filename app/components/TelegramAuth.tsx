@@ -28,28 +28,25 @@ const TelegramAuth: React.FC = () => {
   }
   
   useEffect(() => {
-    console.log('tgInfo1');
-
-    // if (window.Telegram) {
-      // Используем реальные данные в продакшн-режиме
-      if(window.Telegram){
-      const tgInfo = window.Telegram.WebApp.initData;
-      console.log('tgInfo2', tgInfo);
-      setTelegramInitData(tgInfo);
-    }
-    // }
-  }, []);
-
-  useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://telegram.org/js/telegram-web-app.js';
     script.defer = true;
     document.head.appendChild(script);
 
+    script.onload = () => {
+      if (window.Telegram) {
+        const tgInfo = window.Telegram.WebApp.initData;
+        console.log('tgInfo2', tgInfo);
+        setTelegramInitData(tgInfo);
+      }
+    };
+
     return () => {
       document.head.removeChild(script);
     };
   }, []);
+  
+
 
   return (
     <div className="">
