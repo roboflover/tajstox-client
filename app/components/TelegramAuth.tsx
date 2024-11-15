@@ -36,8 +36,10 @@ const TelegramAuth: React.FC = () => {
     script.onload = () => {
       if (window.Telegram) {
         const tgInfo = window.Telegram.WebApp.initData;
-        console.log('tgInfo2', tgInfo);
         setTelegramInitData(tgInfo);
+        if(tgInfo === ''){
+          setTelegramInitData(objectToQueryString(mockTelegramData))
+        }
       }
     };
 
@@ -50,7 +52,7 @@ const TelegramAuth: React.FC = () => {
 
   return (
     <div className="">
-          <button onClick={() => authenticateUser(telegramInitData)}>Кнопка</button>
+          <button onClick={() => authenticateUser(telegramInitData)}>Тестовая регистрация</button>
       {/* Your component content */}
     </div>
   );
