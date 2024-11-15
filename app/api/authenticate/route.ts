@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const response = await axios.get('http://localhost:8085/server/auth/authenticate', {
+    await axios.get('http://localhost:8085/server/auth/authenticate', {
       params: {
         initData: initData
       }
