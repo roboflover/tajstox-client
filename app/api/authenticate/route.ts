@@ -2,7 +2,8 @@ import axios from 'axios';
 import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
-
+  
+  const host = process.env.NEXT_PUBLIC_SERVER
   const initData = req.nextUrl.searchParams.get('initData');
   
   if (!initData) {
@@ -10,7 +11,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    await axios.get('http://localhost:8085/server/auth/authenticate', {
+    await axios.get(`${host}/server/auth/authenticate`, {
       params: {
         initData: initData
       }
