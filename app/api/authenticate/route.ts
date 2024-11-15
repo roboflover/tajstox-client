@@ -1,8 +1,9 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
-  const initData = req.nextUrl.searchParams.get('initData'); // Получение параметра initData из URL
+
+  const initData = req.nextUrl.searchParams.get('initData');
   
   console.log(initData);
   

@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
-import { isDevelopment, mockTelegramData, objectToQueryString } from './config'
+import { mockTelegramData, objectToQueryString } from './config'
 import axios from "axios";
-1
+
 const TelegramAuth: React.FC = () => {
   const [token, setToken] = useState<string | null>(null);
   const [telegramInitData, setTelegramInitData] = useState<string>('null');
@@ -20,7 +20,7 @@ const TelegramAuth: React.FC = () => {
         throw new Error('Failed to authenticate');
       }
     
-      const data = ''//response.data;
+      const data = 'тест'//response.data;
       setToken(data);
     } catch (error) {
       console.error('Authentication failed:', error);
@@ -53,6 +53,7 @@ const TelegramAuth: React.FC = () => {
   return (
     <div className="">
           <button onClick={() => authenticateUser(telegramInitData)}>Тестовая регистрация</button>
+          {token}
       {/* Your component content */}
     </div>
   );

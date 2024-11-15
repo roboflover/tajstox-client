@@ -1,7 +1,3 @@
-// config.ts
-export const isDevelopment = false // process.env.NODE_ENV === 'development';
-// console.log(process.env.NODE_ENV)
-
 export const mockTelegramData = {
   query_id: 'AAGjGFYvAwAAAKMYVi8sWTYy',
   user: {
@@ -18,7 +14,7 @@ export const mockTelegramData = {
   auth_date: 1731447097,
   hash: '0a0bfa7be9b4727e5367a67cbedf09c5c326d4bf9627161b48e6ca02b24a1438'
 };
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function objectToQueryString(obj: Record<string, any>): string {
   const parts: string[] = [];
   for (const key in obj) {
