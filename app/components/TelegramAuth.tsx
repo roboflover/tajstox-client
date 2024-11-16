@@ -16,22 +16,22 @@ const TelegramAuth: React.FC = () => {
     console.log('initDataRaw', initDataRaw)
   
 
-    try {
-      const response = await axios.get(`/api/authenticate`, {
-        params: {
-          initData: initData
-        }
-      });
+    // try {
+    //   const response = await axios.get(`/api/authenticate`, {
+    //     params: {
+    //       initData: initData
+    //     }
+    //   });
     
-      if (response.status !== 200) {
-        throw new Error('Failed to authenticate');
-      }
+    //   if (response.status !== 200) {
+    //     throw new Error('Failed to authenticate');
+    //   }
     
-      const data = 'тест'//response.data;
-      setToken(data);
-    } catch (error) {
-      console.error('Authentication failed:', error);
-    }
+    //   const data = 'тест'//response.data;
+    //   setToken(data);
+    // } catch (error) {
+    //   console.error('Authentication failed:', error);
+    // }
   }
   
   useEffect(() => {
