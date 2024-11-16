@@ -3,12 +3,19 @@
 import React, { useEffect, useState } from 'react';
 import { mockTelegramData, objectToQueryString } from './config'
 import axios from "axios";
+import { retrieveLaunchParams } from '@telegram-apps/sdk';
 
 const TelegramAuth: React.FC = () => {
   const [token, setToken] = useState<string | null>(null);
   const [telegramInitData, setTelegramInitData] = useState<string>('null');
   
+
+
   const authenticateUser = async (initData: string) => {
+    const { initDataRaw  } = retrieveLaunchParams();
+    console.log('initDataRaw', initDataRaw)
+  
+
     try {
       const response = await axios.get(`/api/authenticate`, {
         params: {
