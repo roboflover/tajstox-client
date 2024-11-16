@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { NextRequest } from 'next/server';
+import { retrieveLaunchParams } from '@telegram-apps/sdk';
 
 export async function GET(req: NextRequest) {
-  
+
   const host = process.env.NEXT_PUBLIC_SERVER
   const initData = req.nextUrl.searchParams.get('initData');
-  
+  const { initDataRaw } = retrieveLaunchParams();
+  console.log(initDataRaw)
   if (!initData) {
     return new Response(JSON.stringify({ error: 'initData is missing' }), { status: 400 });
   }
