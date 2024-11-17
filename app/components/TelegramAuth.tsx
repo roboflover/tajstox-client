@@ -12,7 +12,7 @@ const TelegramAuth: React.FC = () => {
     
     try {
       // Send init data to the server
-      const response = await axios.post('server/api/authenticate', {}, {
+      const response = await axios.post('/api/authenticate', {}, {
         headers: {
           Authorization: `tma ${initDataRaw}`, // Add init data in headers
         },

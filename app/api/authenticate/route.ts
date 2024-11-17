@@ -1,35 +1,28 @@
-import axios from 'axios';
-import { NextRequest } from 'next/server';
-// import { retrieveLaunchParams } from '@telegram-apps/sdk';
+// app/api/authenticate/route.ts
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
+  const authHeader = req.headers.get('authorization');
 
-  const host = process.env.NEXT_PUBLIC_SERVER
-  const initData = req.nextUrl.searchParams.get('initData');
-  // const { initDataRaw } = retrieveLaunchParams();
-  // const { initDataRaw, initData } = retrieveLaunchParams();
-  // console.log('initData', initData)
-  // console.log('initDataRaw', initDataRaw)
-
-  if (!initData) {
-    return new Response(JSON.stringify({ error: 'initData is missing' }), { status: 400 });
+  if (!authHeader) {
+    return NextResponse.json({ error: 'Authorization header is missing' }, { status: 400 });
   }
 
-  try {
-    await axios.get(`${host}/server/auth/authenticate`, {
-      params: {
-        initData: initData
-      }
-    });
-} catch (error) {    
-    console.error('Authentication failed:', error);       
-    return new Response(JSON.stringify({ error: 'Authentication failed' }), { status: 500 });
+  const [authType, initData] = authHeader.split(' ');
+
+  if (authType !== 'tma' || !initData) {
+    return NextResponse.json(
+      { error: 'Invalid authorization scheme or data' },
+      { status: 401 }
+    );
+  }
+
+  console.log('Init Data:', initData);
+
+  // Здесь вы можете добавить дополнительную логику для обработки initData
+
+  return NextResponse.json(
+    { message: 'Authorization data received successfully' },
+    { status: 200 }
+  );
 }
-    
-
-  // Добавьте здесь логику обработки, если initData существует
-  // Например, если вы хотите вернуть успешный ответ:
-  return new Response(JSON.stringify({ message: 'initData received successfully', data: initData }), { status: 200 });
-}
-
-
