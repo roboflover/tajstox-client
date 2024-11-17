@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     if (!initData) {
       return NextResponse.json({ error: 'initData is missing' }, { status: 400 });
     }
-
+    console.log(initData)
     const loginResponse = await userService.login(initData);
 
     return NextResponse.json(loginResponse, { status: 200 });
@@ -78,7 +78,7 @@ export type LoginResponse = {
 // Создание сервиса для взаимодействия с API
 export const userService = {
   login: async (initData: string) => {
-    const response = await axiosInstance.post<LoginResponse>(`/server/auth/authenticate`, {
+    const response = await axios.post<LoginResponse>(`/server/auth/authenticate`, {
       initData,
     });
 
