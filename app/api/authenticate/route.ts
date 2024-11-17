@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const response = await axios.post('host/server/auth/authenticate', {}, { // используйте правильный адрес и порт для вашего сервера
+    const response = await axios.post(`${host}/server/auth/authenticate`, {}, { // используйте правильный адрес и порт для вашего сервера
       headers: {
         'Authorization': authHeader,
       },
