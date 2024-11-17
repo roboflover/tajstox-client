@@ -78,7 +78,7 @@ export type LoginResponse = {
 // Создание сервиса для взаимодействия с API
 export const userService = {
   login: async (initData: string) => {
-    const response = await axios.post<LoginResponse>(`/server/auth/authenticate`, {
+    const response = await axios.post<LoginResponse>(`http://localhost:8085/server/auth/authenticate`, {
       initData,
     });
 
