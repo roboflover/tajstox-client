@@ -19,10 +19,11 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const authHeader2 = `tma ${authHeader}`;
   try {
     const response = await axios.post(`${host}/server/auth/authenticate`, {}, { // используйте правильный адрес и порт для вашего сервера
       headers: {
-        'Authorization': authHeader,
+        'Authorization': authHeader2,
       },
     });
 
