@@ -1,8 +1,10 @@
 // app/api/authenticate/route.ts
+import axios from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   const authHeader = req.headers.get('authorization');
+  const host = process.env.NEXT_PUBLIC_SERVER;
 
   if (!authHeader) {
     return NextResponse.json({ error: 'Authorization header is missing' }, { status: 400 });
@@ -17,12 +19,22 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  console.log('Init Data:', initData);
+  try {
+    const response = await axios.post('host/server/auth/authenticate', {}, { // используйте правильный адрес и порт для вашего сервера
+      headers: {
+        'Authorization': authHeader,
+      },
+    });
 
-  // Здесь вы можете добавить дополнительную логику для обработки initData
+    return new Response(response.data, {
+      status: response.status,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error: any) {
+    return new Response(error?.response?.data || 'Unknown error', {
+      status: error.response?.status || 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
-  return NextResponse.json(
-    { message: 'Authorization data received successfully' },
-    { status: 200 }
-  );
 }
