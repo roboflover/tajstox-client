@@ -15,6 +15,18 @@ const Home: React.FC = () => {
         const newScore = score + 1;
         setScore(newScore);
 
+        try {
+            const response = await axios.get('/api/users', {
+                params: {
+                    telegramId: telegramId,
+                },
+            });
+            console.log('Response from server:', response.data);
+            setScore(response.data.score)
+        } catch (error) {
+            console.error('Error sending score:', error);
+        }
+        
         // Отправляем POST-запрос с новым значением score
         try {
             const response = await axios.post('/api/users', {
