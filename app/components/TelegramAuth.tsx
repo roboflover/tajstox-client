@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react';
+import React, { useEffect , useCallback} from 'react';
 import axios from "axios";
 import { retrieveLaunchParams } from '@telegram-apps/sdk';
 
@@ -9,8 +9,7 @@ interface TelegramAuthProps {
 }
 
 const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName }) => {
-
-    const sendInitDataToServer = async () => {
+    const sendInitDataToServer = useCallback(async () => {
         const { initDataRaw } = retrieveLaunchParams(); // Получаем начальные данные
 
         try {
@@ -26,12 +25,11 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName }) => {
         } catch (error) {
             console.error('Error:', error);
         }
-    };
+    }, [setFirstName]); // Указать зависимости, которые используются внутри функции
 
     useEffect(() => {
-        // Выполняем sendInitDataToServer при загрузке компонента
         sendInitDataToServer();
-    }, []); // Пустой массив зависимости, чтобы эффект выполнялся только при монтировании
+    }, [sendInitDataToServer]); // Указан в зависимостях useEffect
 
     return (
         <div>
