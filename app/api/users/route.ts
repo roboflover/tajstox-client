@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     const { score } = await req.json();
 
     // Отправка данных на сервер вашего приложения
-    const response = await axios.post(`${host}/server/users/upscore`, {
+    const response = await axios.patch(`${host}/server/users/upscore`, {
       score,
     });
 
