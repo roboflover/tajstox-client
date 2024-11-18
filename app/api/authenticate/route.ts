@@ -78,7 +78,7 @@ type LoginResponse = {
 // Создание сервиса для взаимодействия с API
 const userService = {
   login: async (initData: string) => {
-    const response = await axios.post<LoginResponse>(`http://localhost:8085/server/auth/authenticate`, {
+    const response = await axios.post<LoginResponse>(`${host}/server/auth/authenticate`, {
       initData,
     });
 
