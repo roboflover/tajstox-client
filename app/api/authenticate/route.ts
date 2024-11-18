@@ -1,14 +1,8 @@
-// app/api/authenticate/route.ts
 import axios from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   const authHeader = req.headers.get('authorization');
-  
-  // // Создание экземпляра axios с базовой конфигурацией
-  // const axiosInstance = axios.create({
-  //   baseURL: host, // Замените на ваш актуальный базовый URL
-  // });
 
   if (!authHeader) {
     return NextResponse.json({ error: 'Authorization header is missing' }, { status: 400 });
@@ -24,8 +18,6 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    // const body = await req.json();
-    // const { initData } = body;
 
     if (!initData) {
       return NextResponse.json({ error: 'initData is missing' }, { status: 400 });
@@ -84,9 +76,5 @@ const userService = {
 
     return response.data;
   },
-  // getCurrentUser: async () => {
-  //   const response = await axiosInstance.get<User>('/auth/me');
 
-  //   return response.data;
-  // },
 };

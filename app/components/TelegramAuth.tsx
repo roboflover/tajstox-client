@@ -6,9 +6,10 @@ import { retrieveLaunchParams } from '@telegram-apps/sdk';
 
 interface TelegramAuthProps {
     setFirstName: (name: string) => void; // Проп для обновления имени
+    setTelegramId: (name: number) => void;
 }
 
-const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName }) => {
+const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setTelegramId }) => {
     const sendInitDataToServer = useCallback(async () => {
         const { initDataRaw } = retrieveLaunchParams(); // Получаем начальные данные
 
@@ -22,6 +23,7 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName }) => {
 
             console.log('Server Response:', response.data);
             setFirstName(response.data.user.firstName); // Устанавливаем firstName из ответа сервера
+            setTelegramId(response.data.user.id)
         } catch (error) {
             console.error('Error:', error);
         }

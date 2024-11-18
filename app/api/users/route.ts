@@ -7,11 +7,11 @@ export async function POST(req: NextRequest) {
 
   try {
     // Парсинг тела запроса
-    const { score } = await req.json();
+    const { score, telegramId } = await req.json();
 
     // Отправка данных на сервер вашего приложения
     const response = await axios.patch(`${host}/server/users/upscore`, {
-      score,
+      score, telegramId
     });
 
     // Возврат успешного ответа клиенту

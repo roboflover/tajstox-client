@@ -8,7 +8,8 @@ import axios from 'axios';
 const Home: React.FC = () => {
     const [score, setScore] = useState(0);
     const [firstName, setFirstName] = useState(''); // Состояние для хранения имени
-
+    const [telegramId, setTelegramId] = useState(0); // Состояние для хранения идентификатора пользователя
+    
     const handleClick = async () => {
         // Обновляем локальное состояние score
         const newScore = score + 1;
@@ -18,6 +19,7 @@ const Home: React.FC = () => {
         try {
             const response = await axios.post('/api/users', {
                 score: newScore, // Передаем score в теле запроса
+                telegramId: telegramId,
             });
             console.log('Response from server:', response.data);
         } catch (error) {
@@ -28,7 +30,7 @@ const Home: React.FC = () => {
     
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-            <TelegramAuth setFirstName={setFirstName} />
+            <TelegramAuth setFirstName={setFirstName} setTelegramId={setTelegramId}/>
             <ParticlesContainer />
             <div
                 className="flex items-center justify-center min-h-screen"
