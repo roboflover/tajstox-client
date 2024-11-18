@@ -24,8 +24,8 @@ const Home: React.FC = () => {
                 }}
             >
                 <div className="text-center">
-                    <div className="mb-4 text-2xl font-bold text-white">Привет: {firstName}</div>
-                    <div className="mb-4 text-2xl font-bold text-white">Очки: {score}</div>
+                    <div className="mb-4 text-2xl font-bold text-white">Hello, {firstName}!</div>
+                    <div className="mb-4 text-2xl font-bold text-white">You score: {score}</div>
                     <button
                         onClick={handleClick}
                         className="w-16 h-16 text-white bg-blue-700 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
