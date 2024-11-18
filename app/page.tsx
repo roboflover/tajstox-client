@@ -9,21 +9,21 @@ const Home: React.FC = () => {
     const [score, setScore] = useState(0);
     const [firstName, setFirstName] = useState(''); // Состояние для хранения имени
 
-    // const handleClick = async () => {
-    //     // Обновляем локальное состояние score
-    //     const newScore = score + 1;
-    //     setScore(newScore);
+    const handleClick = async () => {
+        // Обновляем локальное состояние score
+        const newScore = score + 1;
+        setScore(newScore);
 
-    //     // Отправляем POST-запрос с новым значением score
-    //     try {
-    //         const response = await axios.post('/api/users', {
-    //             score: newScore, // Передаем score в теле запроса
-    //         });
-    //         console.log('Response from server:', response.data);
-    //     } catch (error) {
-    //         console.error('Error sending score:', error);
-    //     }
-    // };
+        // Отправляем POST-запрос с новым значением score
+        try {
+            const response = await axios.post('/api/users', {
+                score: newScore, // Передаем score в теле запроса
+            });
+            console.log('Response from server:', response.data);
+        } catch (error) {
+            console.error('Error sending score:', error);
+        }
+    };
 
     
     return (
@@ -41,7 +41,7 @@ const Home: React.FC = () => {
                 {firstName && <div className="mb-4 text-2xl font-bold text-white">Hello, {firstName}!</div>}                    
                 <div className="mb-4 text-2xl font-bold text-white">You score: {score}</div>
                     <button
-                        // onClick={handleClick}
+                        onClick={handleClick}
                         className="w-16 h-16 text-white bg-blue-700 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                     >
                         +
