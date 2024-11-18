@@ -3,14 +3,28 @@
 import React, { useState } from 'react';
 import { ParticlesContainer } from './components/Particles'; // предположим, что вы уже обернули этот компонент в React.memo
 import TelegramAuth from './components/TelegramAuth';
+import axios from 'axios';
 
 const Home: React.FC = () => {
     const [score, setScore] = useState(0);
     const [firstName, setFirstName] = useState(''); // Состояние для хранения имени
 
-    const handleClick = () => {
-        setScore(score + 1);
+    const handleClick = async () => {
+        // Обновляем локальное состояние score
+        const newScore = score + 1;
+        setScore(newScore);
+
+        // Отправляем POST-запрос с новым значением score
+        try {
+            const response = await axios.post('/api/users', {
+                score: newScore, // Передаем score в теле запроса
+            });
+            console.log('Response from server:', response.data);
+        } catch (error) {
+            console.error('Error sending score:', error);
+        }
     };
+
     
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
