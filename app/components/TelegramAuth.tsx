@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
-import { mockTelegramData, objectToQueryString } from './config'
+import React /*, { useEffect, useState } */ from 'react';
+// import { mockTelegramData, objectToQueryString } from './config'
 import axios from "axios";
 import { retrieveLaunchParams } from '@telegram-apps/sdk';
 

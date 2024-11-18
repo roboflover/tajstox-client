@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   const authHeader = req.headers.get('authorization');
-  const host = process.env.NEXT_PUBLIC_SERVER;
   
   // // Создание экземпляра axios с базовой конфигурацией
   // const axiosInstance = axios.create({
@@ -25,26 +24,27 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const body = await req.json();
+    // const body = await req.json();
     // const { initData } = body;
 
     if (!initData) {
       return NextResponse.json({ error: 'initData is missing' }, { status: 400 });
     }
-    console.log(initData)
+
     const loginResponse = await userService.login(initData);
 
     return NextResponse.json(loginResponse, { status: 200 });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return NextResponse.json({ error: error.message || 'Unknown error' }, { status: 500 });
   }
   
 }
 
-////////////////////////////////////////////////////
+const host = process.env.NEXT_PUBLIC_SERVER;
 // Создание экземпляра axios с базовой конфигурацией
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8085', // Замените на ваш актуальный базовый URL
+  baseURL: host, // Замените на ваш актуальный базовый URL
 });
 
 // Настройка интерсепторов для axiosInstance
@@ -64,19 +64,19 @@ axiosInstance.interceptors.request.use(
 );
 
 // Определение типов данных
-export type User = {
+type User = {
   id: number;
   telegramId: number;
   username: string;
 }
 
-export type LoginResponse = {
+type LoginResponse = {
   user: User;
   token: string;
 }
 
 // Создание сервиса для взаимодействия с API
-export const userService = {
+const userService = {
   login: async (initData: string) => {
     const response = await axios.post<LoginResponse>(`http://localhost:8085/server/auth/authenticate`, {
       initData,
