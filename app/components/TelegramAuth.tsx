@@ -9,7 +9,8 @@ interface TelegramAuthProps {
 }
 
 const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName }) => {
-    const sendInitDataToServer = useCallback(async () => {
+
+    const sendInitDataToServer = async () => {
         const { initDataRaw } = retrieveLaunchParams(); // Получаем начальные данные
 
         try {
@@ -25,11 +26,12 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName }) => {
         } catch (error) {
             console.error('Error:', error);
         }
-    }, [setFirstName]); // Указать зависимости, которые используются внутри функции
+    };
 
     useEffect(() => {
+        // Выполняем sendInitDataToServer при загрузке компонента
         sendInitDataToServer();
-    }, [sendInitDataToServer]); // Указан в зависимостях useEffect
+    }, []); // Пустой массив зависимости, чтобы эффект выполнялся только при монтировании
 
     return (
         <div>
