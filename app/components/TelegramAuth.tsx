@@ -1,11 +1,14 @@
 'use client'
 
-import React /*, { useEffect, useState } */ from 'react';
-// import { mockTelegramData, objectToQueryString } from './config'
+import React from 'react';
 import axios from "axios";
 import { retrieveLaunchParams } from '@telegram-apps/sdk';
 
-const TelegramAuth: React.FC = () => {
+interface TelegramAuthProps {
+    setFirstName: (name: string) => void; // Проп для обновления имени
+}
+
+const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName }) => {
 
   const sendInitDataToServer = async () => {
     const { initDataRaw } = retrieveLaunchParams(); // Get init data
@@ -19,6 +22,7 @@ const TelegramAuth: React.FC = () => {
       });
 
       console.log('Server Response:', response.data);
+      setFirstName(response.data.user.firstName); // Устанавливаем firstName из ответа сервера
     } catch (error) {
       console.error('Error:', error);
     }
