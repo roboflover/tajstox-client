@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from "axios";
 import { retrieveLaunchParams } from '@telegram-apps/sdk';
 
@@ -10,31 +10,34 @@ interface TelegramAuthProps {
 
 const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName }) => {
 
-  const sendInitDataToServer = async () => {
-    const { initDataRaw } = retrieveLaunchParams(); // Get init data
-    
-    try {
-      // Send init data to the server
-      const response = await axios.post('/api/authenticate', {}, {
-        headers: {
-          Authorization: `tma ${initDataRaw}`, // Add init data in headers
-        },
-      });
+    const sendInitDataToServer = async () => {
+        const { initDataRaw } = retrieveLaunchParams(); // Получаем начальные данные
 
-      console.log('Server Response:', response.data);
-      setFirstName(response.data.user.firstName); // Устанавливаем firstName из ответа сервера
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+        try {
+            // Отправляем начальные данные на сервер
+            const response = await axios.post('/api/authenticate', {}, {
+                headers: {
+                    Authorization: `tma ${initDataRaw}`, // Добавляем начальные данные в заголовки
+                },
+            });
 
+            console.log('Server Response:', response.data);
+            setFirstName(response.data.user.firstName); // Устанавливаем firstName из ответа сервера
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
-  return (
-    <div>
-      <h1>Telegram Auth Example</h1>
-      <button onClick={sendInitDataToServer}>Send Init Data</button>
-    </div>
-  );
+    useEffect(() => {
+        // Выполняем sendInitDataToServer при загрузке компонента
+        sendInitDataToServer();
+    }, []); // Пустой массив зависимости, чтобы эффект выполнялся только при монтировании
+
+    return (
+        <div>
+            {/* Здесь больше нет кнопки, так как вызов происходит автоматически */}
+        </div>
+    );
 };
 
 export default TelegramAuth;

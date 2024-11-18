@@ -1,19 +1,19 @@
 'use client'
+
 import React, { useState } from 'react';
 import { ParticlesContainer } from './components/Particles'; // предположим, что вы уже обернули этот компонент в React.memo
 import TelegramAuth from './components/TelegramAuth';
 
 const Home: React.FC = () => {
     const [score, setScore] = useState(0);
-    const [firstName, setFirstName] = useState(''); // Добавляем состояние для firstName
+    const [firstName, setFirstName] = useState(''); // Состояние для хранения имени
 
     const handleClick = () => {
         setScore(score + 1);
     };
-
+    
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-            {/* Передаем функцию для обновления firstName в TelegramAuth */}
             <TelegramAuth setFirstName={setFirstName} />
             <ParticlesContainer />
             <div
