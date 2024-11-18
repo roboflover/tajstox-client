@@ -11,34 +11,25 @@ const Home: React.FC = () => {
     const [telegramId, setTelegramId] = useState(0); // Состояние для хранения идентификатора пользователя
     
     const handleClick = async () => {
-        // Обновляем локальное состояние score
-        const newScore = score + 1;
-        setScore(newScore);
-
+        // Асинхронные операции должны быть корректно отделены и обработаны
         try {
-            const response = await axios.get('/api/users', {
+            const responseGet = await axios.get('/api/users', {
                 params: {
-                    telegramId: telegramId,
+                    telegramId: telegramId,  // Убедитесь, что telegramId корректно задан
                 },
             });
-            console.log('Response from server:', response.data);
-            setScore(response.data.score)
-        } catch (error) {
-            console.error('Error sending score:', error);
-        }
-        
-        // Отправляем POST-запрос с новым значением score
-        try {
-            const response = await axios.post('/api/users', {
-                score: newScore, // Передаем score в теле запроса
+            console.log('Score from server:', responseGet.data);
+            setScore(responseGet.data.data.score); // Убедитесь, что ответ содержит обертку data
+
+            const responsePost = await axios.post('/api/users', {
+                score: score + 1, // Следующий балл для отправки
                 telegramId: telegramId,
             });
-            console.log('Response from server:', response.data);
+            console.log('Response from server after setting score:', responsePost.data);
         } catch (error) {
-            console.error('Error sending score:', error);
+            console.error('Error processing scores:', error);
         }
     };
-
     
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
