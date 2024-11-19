@@ -12,7 +12,7 @@ interface TelegramAuthProps {
 const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setTelegramId }) => {
     const sendInitDataToServer = useCallback(async () => {
         const { initDataRaw } = retrieveLaunchParams(); // Получаем начальные данные
-
+        console.log('ddd Response:');
         try {
             // Отправляем начальные данные на сервер
             const response = await axios.post('/api/authenticate', {}, {
