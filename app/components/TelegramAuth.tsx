@@ -20,10 +20,14 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setTelegramId
                     Authorization: `tma ${initDataRaw}`, // Добавляем начальные данные в заголовки
                 },
             });
-
+            
             console.log('Server Response:', response.data);
+            const jwtToken = response.data.token
+            console.log(jwtToken)
+
             setFirstName(response.data.parsedData.user.firstName); // Устанавливаем firstName из ответа сервера
             setTelegramId(response.data.parsedData.user.id)
+
         } catch (error) {
             console.error('Error:', error);
         }
