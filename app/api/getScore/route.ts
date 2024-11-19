@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    // console.log(jwtToken)
+    console.log(`Bearer ${jwtToken.value}`)
     // Возврат успешного ответа клиенту
     return NextResponse.json({ success: true, data: response.data });
   } catch (error) {
