@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     }
 
     const loginResponse = await userService.login(initData);
-
+    // console.log(loginResponse)
     return NextResponse.json(loginResponse, { status: 200 });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -73,7 +73,7 @@ const userService = {
     const response = await axios.post<LoginResponse>(`${host}/server/auth/authenticate`, {
       initData,
     });
-
+    console.log('privet')
     return response.data;
   },
 

@@ -22,8 +22,8 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setTelegramId
             });
 
             console.log('Server Response:', response.data);
-            setFirstName(response.data.user.firstName); // Устанавливаем firstName из ответа сервера
-            setTelegramId(response.data.user.id)
+            // setFirstName(response.data.user.firstName); // Устанавливаем firstName из ответа сервера
+            // setTelegramId(response.data.user.id)
         } catch (error) {
             console.error('Error:', error);
         }
