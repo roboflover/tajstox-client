@@ -3,15 +3,16 @@
 import React, { useState } from 'react';
 import { ParticlesContainer } from './components/Particles'; // предположим, что вы уже обернули этот компонент в React.memo
 import TelegramAuth from './components/TelegramAuth';
-import axios from 'axios';
+// import axios from 'axios';
 
 const Home: React.FC = () => {
-    const [score, setScore] = useState();
+    const [score, setScore] = useState(0);
     const [firstName, setFirstName] = useState(''); // Состояние для хранения имени
-    const [telegramId, setTelegramId] = useState<Number>(); // Состояние для хранения идентификатора пользователя
+    const [telegramId, setTelegramId] = useState(111); // Состояние для хранения идентификатора пользователя
     
     const handleClick = async () => {
-
+        setScore(5)
+        console.log(telegramId)
         // Асинхронные операции должны быть корректно отделены и обработаны
         // try {
         //     const responseGet = await axios.get('/api/getScore', {

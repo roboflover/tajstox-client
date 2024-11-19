@@ -12,7 +12,7 @@ interface TelegramAuthProps {
 const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setTelegramId }) => {
     const sendInitDataToServer = useCallback(async () => {
         const { initDataRaw } = retrieveLaunchParams(); // Получаем начальные данные
-        console.log('ddd Response:');
+
         try {
             // Отправляем начальные данные на сервер
             const response = await axios.post('/api/authenticate', {}, {
@@ -22,12 +22,12 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setTelegramId
             });
 
             console.log('Server Response:', response.data);
-            setFirstName('response.data.user.firstName'); // Устанавливаем firstName из ответа сервера
-            //setTelegramId(response.data.user.id)
+            setFirstName(response.data.parsedData.user.firstName); // Устанавливаем firstName из ответа сервера
+            setTelegramId(response.data.parsedData.user.id)
         } catch (error) {
             console.error('Error:', error);
         }
-    }, [setFirstName]); // Указать зависимости, которые используются внутри функции
+    }, [setFirstName, setTelegramId]); // Указать зависимости, которые используются внутри функции
 
     useEffect(() => {
         sendInitDataToServer();
