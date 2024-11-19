@@ -6,29 +6,30 @@ import TelegramAuth from './components/TelegramAuth';
 import axios from 'axios';
 
 const Home: React.FC = () => {
-    const [score, setScore] = useState(0);
+    const [score, setScore] = useState();
     const [firstName, setFirstName] = useState(''); // Состояние для хранения имени
     const [telegramId, setTelegramId] = useState<Number>(); // Состояние для хранения идентификатора пользователя
     
     const handleClick = async () => {
+
         // Асинхронные операции должны быть корректно отделены и обработаны
-        try {
-            const responseGet = await axios.get('/api/getScore', {
-                params: {
-                    telegramId: telegramId,  // Убедитесь, что telegramId корректно задан
-                },
-            });
-            console.log('Score from server:', responseGet.data);
-            setScore(responseGet.data.data.score); // Убедитесь, что ответ содержит обертку data
+        // try {
+        //     const responseGet = await axios.get('/api/getScore', {
+        //         params: {
+        //             telegramId: telegramId,  // Убедитесь, что telegramId корректно задан
+        //         },
+        //     });
+        //     console.log('Score from server:', responseGet.data);
+        //     setScore(responseGet.data.data.score); // Убедитесь, что ответ содержит обертку data
             
-            const responsePost = await axios.post('/api/setScore', {
-                score: score + 1, // Следующий балл для отправки
-                telegramId: telegramId,
-            });
-            console.log('Response from server after setting score:', responsePost.data);
-        } catch (error) {
-            console.error('Error processing scores:', error);
-        }
+        //     const responsePost = await axios.post('/api/setScore', {
+        //         score: score + 1, // Следующий балл для отправки
+        //         telegramId: telegramId,
+        //     });
+        //     console.log('Response from server after setting score:', responsePost.data);
+        // } catch (error) {
+        //     console.error('Error processing scores:', error);
+        // }
     };
     
     return (
