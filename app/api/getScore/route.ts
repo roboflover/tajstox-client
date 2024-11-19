@@ -15,14 +15,15 @@ export async function GET(req: NextRequest) {
 
   try {
     // Отправка запроса на сервер вашего приложения с авторизацией
-    const response = await axios.get(`${host}/server/users/score`, {
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
-    });
-    console.log(response.data)
+    // const response = await axios.get(`${host}/server/users/score`, {
+    //   headers: {
+    //     Authorization: `Bearer ${jwtToken}`,
+    //   },
+    // });
+
+    console.log(jwtToken)
     // Возврат успешного ответа клиенту
-    return NextResponse.json({ success: true, data: response.data });
+    return NextResponse.json({ success: true, data: 'response.data '});
   } catch (error) {
     console.error('Error retrieving score:', error);
 
