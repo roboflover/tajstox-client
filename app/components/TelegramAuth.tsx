@@ -1,47 +1,71 @@
 'use client'
 
-import React, { useEffect , useCallback} from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import axios from "axios";
 import { retrieveLaunchParams } from '@telegram-apps/sdk';
 
 interface TelegramAuthProps {
-    setFirstName: (name: string) => void; // Проп для обновления имени
+    setFirstName: (name: string) => void; 
     setTelegramId: (name: number) => void;
 }
 
 const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setTelegramId }) => {
+    const [score, setScore] = useState<number | null>(null);
+
     const sendInitDataToServer = useCallback(async () => {
-        const { initDataRaw } = retrieveLaunchParams(); // Получаем начальные данные
+        const { initDataRaw } = retrieveLaunchParams();
 
         try {
-            // Отправляем начальные данные на сервер
             const response = await axios.post('/api/authenticate', {}, {
                 headers: {
-                    Authorization: `tma ${initDataRaw}`, // Добавляем начальные данные в заголовки
+                    Authorization: `tma ${initDataRaw}`,
                 },
             });
             
-            console.log('Server Response:', response.data);
-            const jwtToken = response.data.token
-            console.log(jwtToken)
+            const jwtToken = response.data.token;
+            // Сохраняем токен в cookie
+            document.cookie = `jwtToken=${jwtToken}; path=/; Secure; SameSite=Strict;`;
 
-            setFirstName(response.data.parsedData.user.firstName); // Устанавливаем firstName из ответа сервера
-            setTelegramId(response.data.parsedData.user.id)
+            setFirstName(response.data.parsedData.user.firstName);
+            setTelegramId(response.data.parsedData.user.id);
+
+            // После успешной аутентификации запрашиваем очки
+            await fetchUserScore(jwtToken);
 
         } catch (error) {
             console.error('Error:', error);
         }
-    }, [setFirstName, setTelegramId]); // Указать зависимости, которые используются внутри функции
+    }, [setFirstName, setTelegramId]);
+
+    const fetchUserScore = useCallback(async (token:string) => {
+        try {
+            const response = await axios.get('/api/getScore', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setScore(response.data.data);
+        } catch (error) {
+            console.error('Error fetching score:', error);
+        }
+    }, []);
 
     useEffect(() => {
         sendInitDataToServer();
-    }, [sendInitDataToServer]); // Указан в зависимостях useEffect
+    }, [sendInitDataToServer]);
 
     return (
         <div>
-            {/* Здесь больше нет кнопки, так как вызов происходит автоматически */}
+            {score !== null ? <p>Your score: {score}</p> : <p>Loading score...</p>}
         </div>
     );
+};
+
+// Пример функции для получения токена из cookie и добавления в заголовки запроса
+const getAuthHeaders = () => {
+    const token = document.cookie.split('; ').find(row => row.startsWith('jwtToken='))
+                    ?.split('=')[1];
+    return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
 export default TelegramAuth;

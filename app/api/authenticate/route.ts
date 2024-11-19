@@ -73,7 +73,7 @@ const userService = {
     const response = await axios.post<LoginResponse>(`${host}/server/auth/authenticate`, {
       initData,
     });
-    console.log('privet')
+    
     return response.data;
   },
 

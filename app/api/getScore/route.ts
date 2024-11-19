@@ -5,18 +5,22 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest) {
   const host = process.env.NEXT_PUBLIC_SERVER;
 
-  try {
-    // Парсинг тела запроса не нужен для GET-запросов. GET-запросы получают данные из строки запроса (query string).
-    const { searchParams } = new URL(req.url);
-    const telegramId = searchParams.get('telegramId');
+  // Извлечение JWT из cookies
+  const jwtToken = req.cookies.get('jwtToken');
 
-    // Отправка данных на сервер вашего приложения
+  if (!jwtToken) {
+    // Возвращаем ошибку, если токен отсутствует
+    return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    // Отправка запроса на сервер вашего приложения с авторизацией
     const response = await axios.get(`${host}/server/users/score`, {
-      params: {
-        telegramId: telegramId,
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
       },
     });
-
+    console.log(response.data)
     // Возврат успешного ответа клиенту
     return NextResponse.json({ success: true, data: response.data });
   } catch (error) {

@@ -21,6 +21,7 @@
     "@tsparticles/preset-firefly": "^3.1.0",
     "@tsparticles/react": "^3.0.0",
     "axios": "^1.7.7",
+    "cookies": "^0.9.1",
     "eruda": "^3.4.1",
     "next": "14.2.15",
     "react": "^18",
