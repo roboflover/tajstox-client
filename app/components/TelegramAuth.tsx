@@ -44,8 +44,8 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setTelegramId
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response.data)
-            setScore(response.data.score);
+            //console.log(response.data.data.data)
+            setScore(response.data.data.data);
         } catch (error) {
             console.error('Error fetching score:', error);
         }
