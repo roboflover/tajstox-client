@@ -8,11 +8,9 @@ import TelegramAuth from './components/TelegramAuth';
 const Home: React.FC = () => {
     const [score, setScore] = useState(0);
     const [firstName, setFirstName] = useState(''); // Состояние для хранения имени
-    const [telegramId, setTelegramId] = useState(111); // Состояние для хранения идентификатора пользователя
+    const [telegramId, setTelegramId] = useState(0); // Состояние для хранения идентификатора пользователя
     
     const handleClick = async () => {
-        setScore(5)
-        console.log(telegramId)
         // Асинхронные операции должны быть корректно отделены и обработаны
         // try {
         //     const responseGet = await axios.get('/api/getScore', {
@@ -35,7 +33,7 @@ const Home: React.FC = () => {
     
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-            <TelegramAuth setFirstName={setFirstName} setTelegramId={setTelegramId}/>
+            <TelegramAuth setFirstName={setFirstName} setTelegramId={setTelegramId} setScore={setScore}/>
             <ParticlesContainer />
             <div
                 className="flex items-center justify-center min-h-screen"

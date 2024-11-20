@@ -6,11 +6,11 @@ import { retrieveLaunchParams } from '@telegram-apps/sdk';
 
 interface TelegramAuthProps {
     setFirstName: (name: string) => void; 
-    setTelegramId: (name: number) => void;
+    setTelegramId: (id: number) => void;
+    setScore: (score: number) => void;
 }
 
-const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setTelegramId }) => {
-    const [score, setScore] = useState<number | null>(null);
+const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setTelegramId, setScore }) => {
 
     const sendInitDataToServer = useCallback(async () => {
         const { initDataRaw } = retrieveLaunchParams();
@@ -57,7 +57,7 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setTelegramId
 
     return (
         <div>
-            {score !== null ? <p>Your score: {score}</p> : <p>Loading score...</p>}
+            {/* {score !== null ? <p>Your score: {score}</p> : <p>Loading score...</p>} */}
         </div>
     );
 };
