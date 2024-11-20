@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
 
   try {
     //Отправка запроса на сервер вашего приложения с авторизацией
-    console.log(`Bearer ${jwtToken.value}`)
+    // console.log(`Bearer ${jwtToken.value}`)
 
     const response = await axios.get(`${host}/server/users/score`, {
       headers: {

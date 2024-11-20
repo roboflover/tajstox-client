@@ -6,11 +6,12 @@ import { retrieveLaunchParams } from '@telegram-apps/sdk';
 
 interface TelegramAuthProps {
     setFirstName: (name: string) => void; 
-    setTelegramId: (id: number) => void;
+    // setTelegramId: (id: number) => void;
     setScore: (score: number) => void;
+    setToken: (token: string) => void;
 }
 
-const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setTelegramId, setScore }) => {
+const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, /*setTelegramId,*/ setScore, setToken }) => {
 
     const sendInitDataToServer = useCallback(async () => {
         const { initDataRaw } = retrieveLaunchParams();
@@ -23,11 +24,12 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setTelegramId
             });
             
             const jwtToken = response.data.token;
+            setToken(jwtToken)
             // Сохраняем токен в cookie
             document.cookie = `jwtToken=${jwtToken}; path=/; Secure; SameSite=Strict;`;
 
             setFirstName(response.data.parsedData.user.firstName);
-            setTelegramId(response.data.parsedData.user.id);
+            //setTelegramId(response.data.parsedData.user.id);
 
             // После успешной аутентификации запрашиваем очки
             await fetchUserScore(jwtToken);
@@ -35,7 +37,7 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setTelegramId
         } catch (error) {
             console.error('Error:', error);
         }
-    }, [setFirstName, setTelegramId]);
+    }, [setFirstName, /*setTelegramId*/ ]);
 
     const fetchUserScore = useCallback(async (token:string) => {
         try {

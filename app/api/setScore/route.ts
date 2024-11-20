@@ -4,16 +4,26 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   const host = process.env.NEXT_PUBLIC_SERVER;
+  // Извлечение JWT из cookies
+  const jwtToken = req.cookies.get('jwtToken');
+
+  if (!jwtToken) {
+    // Возвращаем ошибку, если токен отсутствует
+    return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+  }
 
   try {
     // Парсинг тела запроса
-    const { score, telegramId } = await req.json();
+    const { score } = await req.json();
 
     // Отправка данных на сервер вашего приложения
-    const response = await axios.patch(`${host}/server/users/upscore`, {
-      score, telegramId
-    });
-
+    const response = await axios.patch(`${host}/server/users/setScore`, {score}, {
+        headers: {
+          Authorization: `Bearer ${jwtToken.value}`,
+        },
+      }
+    );
+    
     // Возврат успешного ответа клиенту
     return NextResponse.json({ success: true, data: response.data });
   } catch (error) {

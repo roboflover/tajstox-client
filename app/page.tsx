@@ -3,37 +3,33 @@
 import React, { useState } from 'react';
 import { ParticlesContainer } from './components/Particles'; // предположим, что вы уже обернули этот компонент в React.memo
 import TelegramAuth from './components/TelegramAuth';
+import axios from 'axios';
 // import axios from 'axios';
 
 const Home: React.FC = () => {
     const [score, setScore] = useState(0);
     const [firstName, setFirstName] = useState(''); // Состояние для хранения имени
-    const [telegramId, setTelegramId] = useState(0); // Состояние для хранения идентификатора пользователя
-    
+    // const [telegramId, setTelegramId] = useState(0); // Состояние для хранения идентификатора пользователя
+    const [token, setToken] = useState('')
+
     const handleClick = async () => {
-        // Асинхронные операции должны быть корректно отделены и обработаны
-        // try {
-        //     const responseGet = await axios.get('/api/getScore', {
-        //         params: {
-        //             telegramId: telegramId,  // Убедитесь, что telegramId корректно задан
-        //         },
-        //     });
-        //     console.log('Score from server:', responseGet.data);
-        //     setScore(responseGet.data.data.score); // Убедитесь, что ответ содержит обертку data
-            
-        //     const responsePost = await axios.post('/api/setScore', {
-        //         score: score + 1, // Следующий балл для отправки
-        //         telegramId: telegramId,
-        //     });
-        //     console.log('Response from server after setting score:', responsePost.data);
-        // } catch (error) {
-        //     console.error('Error processing scores:', error);
-        // }
+
+        try {
+            const response = await axios.post('/api/setScore', {score}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            console.log(response.data)
+        } catch(error){
+
+        }
+
     };
     
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-            <TelegramAuth setFirstName={setFirstName} setTelegramId={setTelegramId} setScore={setScore}/>
+            <TelegramAuth setFirstName={setFirstName} /*setTelegramId={setTelegramId}*/ setScore={setScore} setToken={setToken} />
             <ParticlesContainer />
             <div
                 className="flex items-center justify-center min-h-screen"
