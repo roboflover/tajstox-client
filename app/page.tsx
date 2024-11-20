@@ -21,7 +21,7 @@ const Home: React.FC = () => {
                 }
             })
             console.log(response.data)
-            setScore(response.data.data.score)
+            setScore(response.data.data.data.score)
         } catch(error){
 
         }
