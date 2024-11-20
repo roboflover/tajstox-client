@@ -20,7 +20,7 @@ const Home: React.FC = () => {
                     Authorization: `Bearer ${token}`,
                 }
             })
-            console.log(response.data)
+            setScore(response.data.data.data)
         } catch(error){
 
         }
