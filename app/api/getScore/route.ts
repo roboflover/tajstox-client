@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
     });
 
     // Возврат успешного ответа клиенту
-    return NextResponse.json({ success: true, data: 'response.data' });
+    return NextResponse.json({ success: true, data: response.data });
   } catch (error) {
     console.error('Error retrieving score:', error);
 
