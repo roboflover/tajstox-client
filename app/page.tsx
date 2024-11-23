@@ -41,7 +41,7 @@ const Home: React.FC = () => {
             <TelegramAuth setFirstName={setFirstName} /*setTelegramId={setTelegramId}*/ setScore={setScore} setToken={setToken} />
             <ParticlesContainer />
             <div
-                className="flex items-center justify-center min-h-screen z-0"
+                className="flex items-center justify-center min-h-screen"
                 style={{
                     position: 'absolute',
                     top: 0,
@@ -49,7 +49,7 @@ const Home: React.FC = () => {
                     right: 0,
                     bottom: 0,
                     background: 'radial-gradient(circle, rgba(59, 130, 246, 0.2), rgba(0, 0, 0, 0.2))',
-                    zIndex: -1,
+                    zIndex: 10,
                   }}
             >
 {/* Верхнее меню */}
@@ -134,7 +134,7 @@ const Home: React.FC = () => {
                     <div className="mb-4 text-2xl font-bold text-white">{score.toLocaleString('en-EN')}</div>
                     <button
                         onClick={handleClick}
-                        className="w-16 h-16 text-white bg-blue-700 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        className="w-16 h-16 text-white bg-blue-700 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 z-0"
                     >
                         +
                     </button>
