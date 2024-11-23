@@ -105,7 +105,11 @@ export const ParticlesContainer = memo(() => {
   );
 
   if (init) {
-    return <Particles id="tsparticles" particlesLoaded={particlesLoaded} options={options} />;
+    return(
+    <div className="relative z-0">
+      <Particles id="tsparticles" particlesLoaded={particlesLoaded} options={options} className="absolute inset-0" />
+    </div>
+    )
   }
 
   return <></>;
