@@ -8,24 +8,26 @@ import Avatar from '@mui/material/Avatar';
 import { grey } from '@mui/material/colors';
 import LensBlurIcon from '@mui/icons-material/LensBlur';
 import MonetizationOn from '@mui/icons-material/MonetizationOn';
-import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 
 // Массив иконок
 const icons = [
-    MonetizationOn,
+    AccountBalanceWalletIcon,
     HandshakeIcon,
-    AssuredWorkloadIcon,
+    MonetizationOn,
     RocketLaunchIcon,
 ];
+
+const pages = ['Wallet', 'Team', 'Сoins', 'Bonus']
 
 const Home: React.FC = () => {
     const [score, setScore] = useState(0);
     const [firstName, setFirstName] = useState('Name');
     const [token, setToken] = useState('');
     const [level] = useState(1);
-    const [team] = useState('Dotcoin Command');
+    const [team] = useState('Tajstox Command');
 
     const handleClick = async () => {
         try {
@@ -44,7 +46,6 @@ const Home: React.FC = () => {
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
             <TelegramAuth setFirstName={setFirstName} setScore={setScore} setToken={setToken} />
-            <ParticlesContainer />
             <div
                 className="flex items-center justify-center min-h-screen"
                 style={{
@@ -70,7 +71,7 @@ const Home: React.FC = () => {
                                 {firstName}
                             </p>
                             <p className="ml-2 text-xs text-white font-bold text-start whitespace-nowrap overflow-hidden text-ellipsis z-10 " style={{ maxWidth: "12ch" }}>
-                                <span style={{ color: "blue" }}>2</span> DTC/day
+                                <span style={{ color: "blue" }}>2</span> TJX/day
                             </p>
                         </div>
                     </div>
@@ -110,7 +111,7 @@ const Home: React.FC = () => {
                     style={{ left: '15px', right: '15px' }}
                     className="absolute bottom-4 transform translate-x-0 bg-gray-800 rounded-full shadow-md p-4 flex justify-between"
                 >
-                    {['Wallet', 'Friends', 'Earn', 'Boosts'].map((text, index) => {
+                    {pages.map((text, index) => {
                         const IconComponent = icons[index];
                         return (
                             <React.Fragment key={index}>

@@ -1,6 +1,8 @@
-import type { Metadata } from "next";
+"use client";
+
 import localFont from "next/font/local";
 import "./globals.css";
+import { ParticlesContainer } from "./components/Particles";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -13,25 +15,18 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata: Metadata = {
-  title: "TAJSTOX",
-  description: "Tap game",
-};
-
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-  
-  
+}) {
   return (
     <html lang="en">
-      {/* <head><script src="https://telegram.org/js/telegram-web-app.js" defer></script></head> */}
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning={true}
       >
+        <ParticlesContainer />
         {children}
       </body>
     </html>
