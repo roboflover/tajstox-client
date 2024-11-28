@@ -20,6 +20,7 @@ const icons = [
 ];
 
 const pages = ['Wallet', 'Team', 'Сoins', 'Bonus']
+const links = ['/wallet', '/team', '/coins', '/bonus']
 
 const Home: React.FC = () => {
     const [score, setScore] = useState(0);
@@ -117,7 +118,7 @@ const Home: React.FC = () => {
                                 <div className="flex items-center">
                                     <div className="flex flex-col items-center">
                                         <IconComponent sx={{ color: "white" }} />
-                                        <a href="#" className="text-white text-center mt-2 mx-2">{text}</a>
+                                        <a href={links[index]} className="text-white text-center mt-2 mx-2">{text}</a>
                                     </div>
                                     {index !== 3 && (
                                         <span
