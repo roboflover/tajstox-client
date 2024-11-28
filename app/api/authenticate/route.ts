@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       { status: 401 }
     );
   }
-
+  console.log(initData)
   try {
 
     if (!initData) {
