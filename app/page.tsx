@@ -6,21 +6,6 @@ import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import { grey } from '@mui/material/colors';
 import LensBlurIcon from '@mui/icons-material/LensBlur';
-import MonetizationOn from '@mui/icons-material/MonetizationOn';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-import HandshakeIcon from '@mui/icons-material/Handshake';
-
-// Массив иконок
-const icons = [
-    AccountBalanceWalletIcon,
-    HandshakeIcon,
-    MonetizationOn,
-    RocketLaunchIcon,
-];
-
-const pages = ['Wallet', 'Team', 'Сoins', 'Bonus']
-const links = ['/wallet', '/team', '/coins', '/bonus']
 
 const Home: React.FC = () => {
     const [score, setScore] = useState(0);
@@ -106,33 +91,6 @@ const Home: React.FC = () => {
                     </button>
                 </div>
 
-                {/* Нижнее меню */}
-                <div
-                    style={{ left: '15px', right: '15px' }}
-                    className="absolute bottom-4 transform translate-x-0 bg-gray-800 rounded-full shadow-md p-4 flex justify-between"
-                >
-                    {pages.map((text, index) => {
-                        const IconComponent = icons[index];
-                        return (
-                            <React.Fragment key={index}>
-                                <div className="flex items-center">
-                                    <div className="flex flex-col items-center">
-                                        <IconComponent sx={{ color: "white" }} />
-                                        <a href={links[index]} className="text-white text-center mt-2 mx-2">{text}</a>
-                                    </div>
-                                    {index !== 3 && (
-                                        <span
-                                            className="border-l border-white mx-4"
-                                            style={{
-                                                height: "50%",
-                                            }}
-                                        ></span>
-                                    )}
-                                </div>
-                            </React.Fragment>
-                        );
-                    })}
-                </div>
             </div>
         </div>
     );

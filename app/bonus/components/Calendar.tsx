@@ -39,7 +39,7 @@ const Calendar: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-4 pt-20 flex flex-col items-center justify-center">
+    <div className="p-4 pt-8 flex flex-col items-center justify-center">
       <div className='mb-5'>
         <CalendarMonthSharpIcon  fontSize="large" sx={{ color: blue[500]}} />
       </div>
