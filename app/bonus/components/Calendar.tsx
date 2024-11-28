@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import GradientCircle from './GradientCircle';
+import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
+import { blue } from '@mui/material/colors';
 
 // Тип для структуры дня с бонусами
 interface DayWithBonus {
   day: number;
   bonus: number;
 }
+
 
 const DAYS_COUNT = 15; // Фиксированное количество дней
 
@@ -16,11 +19,7 @@ const calculateBonus = (day: number): number => {
 };
 
 const Calendar: React.FC = () => {
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [purchasedDay, setPurchasedDay] = useState<number | null>(null); // Состояние для купленного дня
-
-  const year = currentDate.getFullYear();
-  const month = currentDate.toLocaleString('default', { month: 'long' });
 
   // Генерация массива с фиксированным количеством дней и бонусами
   const daysWithBonuses: DayWithBonus[] = Array.from({ length: DAYS_COUNT }, (_, i) => ({
@@ -40,7 +39,11 @@ const Calendar: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-4 pt-20">
+    <div className="p-4 pt-20 flex flex-col items-center justify-center">
+      <div className='mb-5'>
+        <CalendarMonthSharpIcon  fontSize="large" sx={{ color: blue[500]}} />
+      </div>
+
       <h2 className="text-center text-2xl font-semibold text-blue-200 mb-4">
         Daily reward
       </h2>

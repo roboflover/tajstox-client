@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react';
-import { ParticlesContainer } from './components/Particles';
 import TelegramAuth from './components/TelegramAuth';
 import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
