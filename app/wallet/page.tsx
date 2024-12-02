@@ -6,34 +6,30 @@ import profilePic from '../logo.jpg'
 import Image from 'next/image'
 import { useScore } from '../contex/ScoreContext';
 import { authenticateUser, fetchUserScore } from '../services/apiService';
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
-interface TelegramAuthProps {
-    setFirstName: (name: string) => void; 
-    setToken: (token: string ) => void;
-}
-
-const Wallet: React.FC<TelegramAuthProps> = () => {
+const Wallet: React.FC = () => {
     const { score, setScore } = useScore();
-    const [token, setToken] = useState('')
+    // const [token, setToken] = useState('')
+
     const sendInitDataToServer = useCallback(async () => {
         const { initDataRaw } = retrieveLaunchParams();
 
         try {
             // Вызываем функцию аутентификации из authService
             const { token } = await authenticateUser(initDataRaw);
-            console.log(token)
             // Сохраняем токен и имя пользователя
-            setToken(token);
+            //setToken(token);
             document.cookie = `jwtToken=${token}; path=/; Secure; SameSite=Strict`;
 
             // Загружаем очки пользователя
             await fetchUserScore(token, setScore);
+
         } catch (error) {
             console.error('Error:', error);
         }
-    }, [setToken, setScore]);
+    }, [setScore]);
 
     useEffect(() => {
         sendInitDataToServer();
