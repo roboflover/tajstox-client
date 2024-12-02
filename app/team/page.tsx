@@ -1,4 +1,4 @@
-const Wallet: React.FC = () => {
+const Team: React.FC = () => {
 
     return (
         <div><></></div>
@@ -6,4 +6,4 @@ const Wallet: React.FC = () => {
 
 }
 
-export default Wallet
+export default Team

@@ -8,8 +8,7 @@ import MonetizationOn from '@mui/icons-material/MonetizationOn';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import HandshakeIcon from '@mui/icons-material/Handshake';
-
-
+import { ScoreProvider } from './contex/ScoreContext';
 // Массив иконок
 const icons = [
   AccountBalanceWalletIcon,
@@ -38,6 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    <ScoreProvider>
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -45,35 +45,37 @@ export default function RootLayout({
       >
         <ParticlesContainer />
         {children}
-
-                {/* Нижнее меню */}
-                <div
-                    style={{ left: '15px', right: '15px' }}
-                    className="absolute bottom-4 transform translate-x-0 bg-gray-800 rounded-full shadow-md p-4 flex justify-between"
-                >
-                    {pages.map((text, index) => {
-                        const IconComponent = icons[index];
-                        return (
-                            <React.Fragment key={index}>
-                                <div className="flex items-center">
-                                    <div className="flex flex-col items-center">
-                                        <IconComponent sx={{ color: "white" }} />
-                                        <a href={links[index]} className="text-white text-center mt-2 mx-2">{text}</a>
-                                    </div>
-                                    {index !== 3 && (
-                                        <span
-                                            className="border-l border-white mx-4"
-                                            style={{
-                                                height: "50%",
-                                            }}
-                                        ></span>
-                                    )}
-                                </div>
-                            </React.Fragment>
-                        );
-                    })}
+        {/* Нижнее меню */}
+        <div
+          style={{ left: '15px', right: '15px' }}
+          className="absolute bottom-4 transform translate-x-0 bg-gray-800 rounded-full shadow-md p-4 flex justify-between z-10"
+        >
+          {pages.map((text, index) => {
+            const IconComponent = icons[index];
+            return (
+              <React.Fragment key={index}>
+                <div className="flex items-center">
+                  <div className="flex flex-col items-center">
+                    <IconComponent sx={{ color: "white", pointerEvents: "none" }} />
+                    <a href={links[index]} className="text-white text-center mt-2 mx-2 hover:text-gray-400">
+                      {text}
+                    </a>
+                  </div>
+                  {index !== 3 && (
+                    <span
+                      className="border-l border-white mx-4"
+                      style={{
+                        height: "50%",
+                      }}
+                    ></span>
+                  )}
                 </div>
+              </React.Fragment>
+            );
+          })}
+        </div>
       </body>
     </html>
+    </ScoreProvider>
   );
 }

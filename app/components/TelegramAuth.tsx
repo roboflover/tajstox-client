@@ -2,14 +2,15 @@
 import React, { useEffect, useCallback } from 'react';
 import axios from "axios";
 import { retrieveLaunchParams } from '@telegram-apps/sdk';
+import { useScore } from '../contex/ScoreContext'; // Импортируем хук
 
 interface TelegramAuthProps {
     setFirstName: (name: string) => void; 
-    setScore: (score: number) => void;
     setToken: (token: string) => void;
 }
 
-const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setScore, setToken }) => {
+const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setToken }) => {
+    const { setScore } = useScore(); // Берем setScore из контекста
 
     const fetchUserScore = useCallback(async (token: string) => {
         try {
@@ -18,11 +19,12 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setScore, set
                     Authorization: `Bearer ${token}`,
                 },
             });
-            setScore(response.data.data.data);
+            setScore(response.data.data.data); // Устанавливаем score через контекст
         } catch (error) {
             console.error('Error fetching score:', error);
         }
-    }, [setScore]);  // Добавлено `setScore` как зависимость
+    }, [setScore]);
+
 
     const sendInitDataToServer = useCallback(async () => {
         const { initDataRaw } = retrieveLaunchParams();

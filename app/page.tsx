@@ -6,9 +6,14 @@ import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import { grey } from '@mui/material/colors';
 import LensBlurIcon from '@mui/icons-material/LensBlur';
+import Image from 'next/image'
+import profilePic from './logo.jpg'
+import { useScore } from './contex/ScoreContext';
 
 const Home: React.FC = () => {
-    const [score, setScore] = useState(0);
+
+    const { score } = useScore();
+    const { setScore } = useScore();
     const [firstName, setFirstName] = useState('Name');
     const [token, setToken] = useState('');
     const [level] = useState(1);
@@ -30,7 +35,7 @@ const Home: React.FC = () => {
 
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-            <TelegramAuth setFirstName={setFirstName} setScore={setScore} setToken={setToken} />
+            <TelegramAuth setFirstName={setFirstName} setToken={setToken} />
             <div
                 className="flex items-center justify-center min-h-screen"
                 style={{
@@ -68,7 +73,13 @@ const Home: React.FC = () => {
 
                     {/* Правый блок */}
                     <div className="flex justify-start items-center pl-5" style={{ width: "50%" }}>
-                        <Avatar sx={{ bgcolor: grey[500], color: "black" }}> <LensBlurIcon/> </Avatar>
+                    <Image
+                        src={profilePic}
+                        width={40}
+                        height={40}
+                        alt="Logo"
+                        className='rounded-full'
+                        />
                         <div className='justify-start '>
                             <p className="ml-2 text-l text-white font-bold text-center whitespace-nowrap overflow-hidden text-ellipsis z-10 " style={{ maxWidth: "12ch" }}>
                                 {team}
@@ -82,7 +93,7 @@ const Home: React.FC = () => {
 
                 {/* Контент */}
                 <div className="text-center">
-                    <div className="mb-4 text-2xl font-bold text-white">{score.toLocaleString('en-EN')}</div>
+                    <div className="mb-4 text-2xl font-bold text-white">{score}</div>
                     <button
                         onClick={handleClick}
                         className="w-16 h-16 text-white bg-blue-700 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 z-0"
