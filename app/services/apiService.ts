@@ -13,3 +13,29 @@ export const fetchUserScore = async (token: string, setScore: (score: number) =>
         console.error('Error fetching score:', error);
     }
 };
+
+
+interface ParsedData {
+    user: {
+        firstName: string; // Имя пользователя
+        lastName?: string; // Фамилия пользователя (если есть)
+        username?: string; // Имя пользователя в Telegram (если есть)
+        id: number; // Уникальный идентификатор пользователя
+    };
+}
+
+
+export const authenticateUser = async (initDataRaw: string|undefined): Promise<{ token: string; parsedData:ParsedData }> => {
+    try {
+        const response = await axios.post('/api/authenticate', {}, {
+            headers: {
+                Authorization: `tma ${initDataRaw}`,
+            },
+        });
+
+        return response.data; // Возвращаем данные от сервера
+    } catch (error) {
+        console.error('Error during authentication:', error);
+        throw error; // Пробрасываем ошибку дальше
+    }
+};
