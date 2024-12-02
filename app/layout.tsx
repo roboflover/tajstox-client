@@ -56,8 +56,8 @@ export default function RootLayout({
               <React.Fragment key={index}>
                 <div className="flex items-center">
                   <div className="flex flex-col items-center">
-                    <IconComponent sx={{ color: "white", pointerEvents: "none" }} />
                     <a href={links[index]} className="text-white text-center mt-2 mx-2 hover:text-gray-400">
+                      <IconComponent sx={{ color: "white", pointerEvents: "none" }} />
                       {text}
                     </a>
                   </div>

@@ -5,7 +5,6 @@ import TelegramAuth from './components/TelegramAuth';
 import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import { grey } from '@mui/material/colors';
-import LensBlurIcon from '@mui/icons-material/LensBlur';
 import Image from 'next/image'
 import profilePic from './logo.jpg'
 import { useScore } from './contex/ScoreContext';

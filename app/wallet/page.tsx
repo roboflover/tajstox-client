@@ -1,9 +1,14 @@
+'use client'
+
 import Logobig from "./ton_logo_dark_background.svg";
 import Logosmall from "./ton_symbol.svg"
 import profilePic from '../logo.jpg'
 import Image from 'next/image'
+import { useScore } from '../contex/ScoreContext';
 
 const Wallet: React.FC = () => {
+    const { score } = useScore();
+
     return (
         <div className="space-y-6 mt-20 mr-5 ml-5">  {/* Дополнительно добавили отступ между строками */}
 
@@ -18,7 +23,7 @@ const Wallet: React.FC = () => {
                 className="w-2 h-2 bg-blue-500 rounded-full mr-2"
                 title="Blue circle"
                 ></div>
-                <span className="font-semibold text-xl">263</span>
+                <span className="font-semibold text-xl">{score}</span>
             </div>
             </div>
 

@@ -1,17 +1,23 @@
+'use client';
+
 import React, { createContext, useContext, useState } from 'react';
 
-// Определяем интерфейс для состояния
+// Define the interface for the context
 interface ScoreContextType {
-  score: number | null;
+  score: number;
   setScore: (score: number) => void;
 }
 
-// Создаем контекст
+// Create the context
 const ScoreContext = createContext<ScoreContextType | undefined>(undefined);
 
-// Создаем провайдер для контекста
-export const ScoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [score, setScore] = useState<number | null>(null);
+// Create a provider for the context
+interface ScoreProviderProps {
+  children: React.ReactNode;
+}
+
+export const ScoreProvider: React.FC<ScoreProviderProps> = ({ children }) => {
+  const [score, setScore] = useState<number>(0); // Default value is 0
 
   return (
     <ScoreContext.Provider value={{ score, setScore }}>
@@ -20,7 +26,7 @@ export const ScoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   );
 };
 
-// Хук для использования контекста
+// Custom hook to use the context
 export const useScore = (): ScoreContextType => {
   const context = useContext(ScoreContext);
   if (!context) {
