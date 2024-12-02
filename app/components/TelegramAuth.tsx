@@ -3,6 +3,7 @@ import React, { useEffect, useCallback } from 'react';
 import axios from "axios";
 import { retrieveLaunchParams } from '@telegram-apps/sdk';
 import { useScore } from '../contex/ScoreContext'; // Импортируем хук
+import { fetchUserScore } from '../services/apiService';
 
 interface TelegramAuthProps {
     setFirstName: (name: string) => void; 
@@ -12,18 +13,18 @@ interface TelegramAuthProps {
 const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setToken }) => {
     const { setScore } = useScore(); // Берем setScore из контекста
 
-    const fetchUserScore = useCallback(async (token: string) => {
-        try {
-            const response = await axios.get('/api/getScore', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            setScore(response.data.data.data); // Устанавливаем score через контекст
-        } catch (error) {
-            console.error('Error fetching score:', error);
-        }
-    }, [setScore]);
+    // const fetchUserScore = useCallback(async (token: string) => {
+    //     try {
+    //         const response = await axios.get('/api/getScore', {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
+    //         setScore(response.data.data.data); // Устанавливаем score через контекст
+    //     } catch (error) {
+    //         console.error('Error fetching score:', error);
+    //     }
+    // }, [setScore]);
 
 
     const sendInitDataToServer = useCallback(async () => {
@@ -42,7 +43,7 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setToken }) =
 
             setFirstName(response.data.parsedData.user.firstName);
 
-            await fetchUserScore(jwtToken);
+            await fetchUserScore(jwtToken, setScore);
 
         } catch (error) {
             console.error('Error:', error);
