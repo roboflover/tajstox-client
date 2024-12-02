@@ -25,3 +25,19 @@ body {
     text-wrap: balance;
   }
 }
+
+.spinner {
+  border: 3px solid transparent; /* Прозрачный бордер */
+  border-top: 3px solid #3498db; /* Верхний градиентный цвет */
+  border-radius: 50%; /* Круг */
+  animation: spin 1s linear infinite; /* Анимация вращения */
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg); /* Начальное положение */
+  }
+  to {
+    transform: rotate(360deg); /* Конечное положение */
+  }
+}

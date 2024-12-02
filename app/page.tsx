@@ -92,7 +92,18 @@ const Home: React.FC = () => {
 
                 {/* Контент */}
                 <div className="text-center">
-                    <div className="mb-4 text-2xl font-bold text-white">{score}</div>
+                <div className="mb-4 text-2xl font-bold text-white flex justify-center items-center">
+                    <span className="font-semibold text-xl">
+                        {score === 0 ? (
+                            // Вращающееся кольцо
+                            <div className="spinner" style={{ width: "25px", height: "25px" }}></div>
+                        ) : (
+                            // Показать значение score
+                            <span className="font-semibold text-xl">{score}</span>
+                        )}
+                    </span>
+                </div>
+
                     <button
                         onClick={handleClick}
                         className="w-16 h-16 text-white bg-blue-700 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 z-0"

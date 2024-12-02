@@ -49,7 +49,15 @@ const Wallet: React.FC = () => {
                 className="w-2 h-2 bg-blue-500 rounded-full mr-2"
                 title="Blue circle"
                 ></div>
-                <span className="font-semibold text-xl">{score}</span>
+                <span className="font-semibold text-xl">
+                {score === 0 ? (
+                    // Вращающееся кольцо
+                    <div className="spinner" style={{ width: "25px", height: "25px" }}></div>
+                ) : (
+                    // Показать значение score
+                    <span className="font-semibold text-xl">{score}</span>
+                )}
+                </span>
             </div>
             </div>
 
