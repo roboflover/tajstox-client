@@ -9,16 +9,18 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import { ScoreProvider } from './contex/ScoreContext';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 // Массив иконок
 const icons = [
   AccountBalanceWalletIcon,
   HandshakeIcon,
+  SportsEsportsIcon,
   MonetizationOn,
   RocketLaunchIcon,
 ];
 
-const pages = ['Wallet', 'Team', 'Сoins', 'Bonus']
-const links = ['/wallet', '/team', '/coins', '/bonus']
+const pages = ['Wallet', 'Team', 'Game', 'Сoins', 'Bonus']
+const links = ['/wallet', '/team', '/', '/coins', '/bonus']
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -56,14 +58,14 @@ export default function RootLayout({
               <React.Fragment key={index}>
                 <div className="flex items-center">
                   <div className="flex flex-col items-center">
-                    <a href={links[index]} className="text-white text-center mt-2 mx-2 hover:text-gray-400">
+                    <a href={links[index]} className="text-white text-center mt-2 mx-0 hover:text-gray-400">
                       <IconComponent sx={{ color: "white", pointerEvents: "none" }} />
                       {text}
                     </a>
                   </div>
-                  {index !== 3 && (
+                  {index !== 4 && (
                     <span
-                      className="border-l border-white mx-4"
+                      className="border-l border-white mx-2"
                       style={{
                         height: "50%",
                       }}
