@@ -82,7 +82,7 @@ const Wallet: React.FC = () => {
                         height={32}
                         alt="Logo"
                         className='rounded-full ml-3'
-                        />
+                />
                 <span className="ml-2  font-semibold">TAJSTOX</span>
                 </div>
                 <div className="text-right">
