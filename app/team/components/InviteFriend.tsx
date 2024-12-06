@@ -52,7 +52,7 @@ const InviteFriend: React.FC = () => {
 
   return (
 <div>
-  {/* <p>Invite a friend using this referral link:</p>
+  <p>Invite a friend using this referral link:</p>
   <input
     type="text"
     value={referralLink}
@@ -61,7 +61,7 @@ const InviteFriend: React.FC = () => {
   />
   <button onClick={copyToClipboard} className="copy-button">
     Copy Referral Link
-  </button> */}
+  </button>
 </div>
   );
 };
