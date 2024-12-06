@@ -1,20 +1,21 @@
 import React, { useEffect, useCallback } from 'react';
 import { retrieveLaunchParams } from '@telegram-apps/sdk';
 import { useScore } from '../contex/ScoreContext';
-import { useToken } from '../contex/TokenContext'; 
 import { fetchUserScore } from '../services/apiService';
 import { authenticateUser } from '../services/apiService'; // Импортируем функцию аутентификации
+import { useToken } from '../contex/TokenContext'; 
 
 interface TelegramAuthProps {
     setFirstName: (name: string) => void; 
-    setToken: (token: string ) => void;
+    // setToken: (token: string ) => void;
 }
 
 
 
-const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setToken }) => {
+const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName }) => {
     const { setScore } = useScore();
-    const { setJwTToken } = useToken(); 
+    const { setToken } = useToken(); 
+
     const sendInitDataToServer = useCallback(async () => {
         const { initDataRaw } = retrieveLaunchParams();
 
@@ -24,7 +25,7 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setToken }) =
 
             // Сохраняем токен и имя пользователя
             setToken(token);
-            setJwTToken(token)
+            console.log('token', token)
             document.cookie = `jwtToken=${token}; path=/; Secure; SameSite=Strict`;
             setFirstName(parsedData.user.firstName);
 
