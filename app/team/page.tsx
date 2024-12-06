@@ -7,6 +7,7 @@ import { retrieveLaunchParams } from "@telegram-apps/sdk";
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import { blue } from '@mui/material/colors';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import InviteFriend from './components/InviteFriend';
 
 const Team: React.FC = () => {
     const { setScore } = useScore();
@@ -35,7 +36,7 @@ const Team: React.FC = () => {
 
     return (
         <div className="space-y-6 mt-20 mr-5 ml-5">  {/* Дополнительно добавили отступ между строками */}
-
+            <InviteFriend/>
             {/* Строка со свторой криптовалютой */}
             <div className="flex flex-col justify-center items-center">
                 <div className="flex items-center ml-2 mb-2">

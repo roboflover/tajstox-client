@@ -66,7 +66,7 @@ export default function RootLayout({
                 <a href={links[index]} className="text-white text-center mt-2 mx-0 hover:text-gray-400">
                   <IconComponent sx={{ color: "white", pointerEvents: "none" }} />
                 </a>
-                <div>{text}</div>
+                <p className="text-sm">{text}</p>
               </div>
             </div>
           </React.Fragment>

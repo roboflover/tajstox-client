@@ -4,12 +4,12 @@ import { blue } from '@mui/material/colors';
 import MonetizationOn from '@mui/icons-material/MonetizationOn';
 import Image from 'next/image'
 import profilePic from './1win.jpg'
+import InviteFriend from './components/InviteFriend';
 
 const Coins: React.FC = () => {
 
     return (
         <div className="space-y-6 mt-20 mr-5 ml-5"> {/* Дополнительно добавили отступ между строками */}
-    
             {/* Строка со второй криптовалютой */}
             <div className="flex flex-col justify-center items-center">
                 <div className="flex items-center ml-2 mb-2">
