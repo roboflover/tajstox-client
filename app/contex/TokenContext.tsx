@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from 'react';
 // Типы для контекста
 interface TokenContextType {
   token: string | null;
-  setToken: (token: string | null) => void;
+  setJwTToken: (token: string | null) => void;
 }
 
 // Создаем контекст
@@ -11,10 +11,10 @@ const TokenContext = createContext<TokenContextType | undefined>(undefined);
 
 // Провайдер для контекста
 export const TokenProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setJwTToken] = useState<string | null>(null);
 
   return (
-    <TokenContext.Provider value={{ token, setToken }}>
+    <TokenContext.Provider value={{ token, setJwTToken }}>
       {children}
     </TokenContext.Provider>
   );

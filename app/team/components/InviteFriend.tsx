@@ -29,7 +29,7 @@ const InviteFriend: React.FC = () => {
 
   useEffect(() => {
     if (token) {
-      console.log(token)
+      console.log('token invite JWT', token)
       const userData = parseJwt(token);
       setUserId(userData?.id);
     }
