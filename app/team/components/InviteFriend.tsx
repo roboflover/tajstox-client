@@ -6,7 +6,6 @@ import React, { useState, useEffect } from 'react';
 function parseJwt(token: string) {
   try {
     const base64Url = token.split('.')[1];
-    if (!base64Url) throw new Error('Invalid JWT');
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(
       atob(base64)
@@ -23,8 +22,6 @@ function parseJwt(token: string) {
     return null;
   }
 }
-
-
 
 const InviteFriend: React.FC = () => {
   const { token } = useToken(); // Получаем токен из контекста

@@ -34,7 +34,7 @@ const Home: React.FC = () => {
 
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-            <TelegramAuth setFirstName={setFirstName} setToken={setToken} />
+            <TelegramAuth setFirstName={setFirstName} />
             <div
                 className="flex items-center justify-center min-h-screen"
                 style={{

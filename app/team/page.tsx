@@ -1,38 +1,38 @@
 'use client'
 
-import { useScore } from '../contex/ScoreContext';
-import { authenticateUser, fetchUserScore } from '../services/apiService';
-import { useCallback, useEffect } from "react";
-import { retrieveLaunchParams } from "@telegram-apps/sdk";
+// import { useScore } from '../contex/ScoreContext';
+// import { authenticateUser, fetchUserScore } from '../services/apiService';
+// import { useCallback, useEffect } from "react";
+// import { retrieveLaunchParams } from "@telegram-apps/sdk";
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import { blue } from '@mui/material/colors';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import InviteFriend from './components/InviteFriend';
 
 const Team: React.FC = () => {
-    const { setScore } = useScore();
+    // const { setScore } = useScore();
 
-    const sendInitDataToServer = useCallback(async () => {
-        const { initDataRaw } = retrieveLaunchParams();
+    // const sendInitDataToServer = useCallback(async () => {
+    //     const { initDataRaw } = retrieveLaunchParams();
 
-        try {
-            // Вызываем функцию аутентификации из authService
-            const { token } = await authenticateUser(initDataRaw);
-            // Сохраняем токен и имя пользователя
-            //setToken(token);
-            document.cookie = `jwtToken=${token}; path=/; Secure; SameSite=Strict`;
+    //     try {
+    //         // Вызываем функцию аутентификации из authService
+    //         const { token } = await authenticateUser(initDataRaw);
+    //         // Сохраняем токен и имя пользователя
+    //         //setToken(token);
+    //         document.cookie = `jwtToken=${token}; path=/; Secure; SameSite=Strict`;
 
-            // Загружаем очки пользователя
-            await fetchUserScore(token, setScore);
+    //         // Загружаем очки пользователя
+    //         await fetchUserScore(token, setScore);
 
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }, [setScore]);
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //     }
+    // }, [setScore]);
 
-    useEffect(() => {
-        sendInitDataToServer();
-    }, [sendInitDataToServer]);
+    // useEffect(() => {
+    //     sendInitDataToServer();
+    // }, [sendInitDataToServer]);
 
     return (
         <div className="space-y-6 mt-20 mr-5 ml-5">  {/* Дополнительно добавили отступ между строками */}
