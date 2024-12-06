@@ -25,7 +25,7 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName }) => {
 
             // Сохраняем токен и имя пользователя
             setToken(token);
-            console.log('token', token)
+            // console.log('token', token)
             document.cookie = `jwtToken=${token}; path=/; Secure; SameSite=Strict`;
             setFirstName(parsedData.user.firstName);
 

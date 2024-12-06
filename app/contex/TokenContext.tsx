@@ -11,7 +11,13 @@ const TokenContext = createContext<TokenContextType | undefined>(undefined);
 
 // Провайдер для контекста
 export const TokenProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setTokenState] = useState<string | null>(null);
+
+  // Оборачиваем setTokenState для добавления логирования
+  const setToken = (newToken: string | null) => {
+    console.log('Updating token:', newToken); // Логируем новое значение токена
+    setTokenState(newToken);
+  };
 
   return (
     <TokenContext.Provider value={{ token, setToken }}>

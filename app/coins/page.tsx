@@ -4,7 +4,6 @@ import { blue } from '@mui/material/colors';
 import MonetizationOn from '@mui/icons-material/MonetizationOn';
 import Image from 'next/image'
 import profilePic from './1win.jpg'
-import InviteFriend from './components/InviteFriend';
 
 const Coins: React.FC = () => {
 
