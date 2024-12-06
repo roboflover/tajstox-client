@@ -14,12 +14,13 @@ const Home: React.FC = () => {
     const { score } = useScore();
     const { setScore } = useScore();
     const [firstName, setFirstName] = useState('Name');
-    const [token, setToken] = useState('');
+    const [token] = useState('');
     const [level] = useState(1);
     const [team] = useState('Tajstox Command');
 
     const handleClick = async () => {
         try {
+            console.log('token', token)
             const response = await axios.post('/api/setScore', {score}, {
                 headers: {
                     Authorization: `Bearer ${token}`,

@@ -26,7 +26,10 @@ function parseJwt(token: string) {
 const InviteFriend: React.FC = () => {
   const { token } = useToken(); // Получаем токен из контекста
   const [userId, setUserId] = useState<string | null>(null);
-  console.log('token', token)
+  // console.log('token', token)
+  
+  // const jwtToken = req.cookies.get('jwtToken');
+
   useEffect(() => {
     if (token) {
       console.log('token invite JWT', token)
