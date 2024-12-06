@@ -23,11 +23,23 @@ function parseJwt(token: string) {
   }
 }
 
+function getCookie(name: string): string | undefined {
+  const value = `${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+      return parts.pop()?.split(';').shift();
+  }
+  return undefined;
+}
+
 const InviteFriend: React.FC = () => {
   const { token } = useToken(); // Получаем токен из контекста
   const [userId, setUserId] = useState<string | null>(null);
   // console.log('token', token)
-  
+  // Пример использования
+const jwtToken: string | undefined = getCookie('jwtToken');
+console.log('jwtToken', jwtToken);
+
   // const jwtToken = req.cookies.get('jwtToken');
 
   useEffect(() => {
