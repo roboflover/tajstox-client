@@ -21,7 +21,7 @@ const Wallet: React.FC = () => {
         try {
             // Вызываем функцию аутентификации из authService
             const { token } = await authenticateUser(initDataRaw);
-            console.log(token)
+            console.log('token', token)
             setToken(token);
             // Сохраняем токен и имя пользователя
             document.cookie = `jwtToken=${token}; path=/; Secure; SameSite=Strict`;
@@ -32,7 +32,7 @@ const Wallet: React.FC = () => {
         } catch (error) {
             console.error('Error:', error);
         }
-    }, [setScore]);
+    }, [setScore, setToken]);
 
     useEffect(() => {
         sendInitDataToServer();
