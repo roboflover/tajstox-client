@@ -11,6 +11,7 @@ import HandshakeIcon from '@mui/icons-material/Handshake';
 import { ScoreProvider } from './contex/ScoreContext';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { TokenProvider } from './contex/TokenContext';
+import Link from 'next/link';
 
 // Массив иконок
 const icons = [
@@ -65,9 +66,9 @@ export default function RootLayout({
                   {isGame && (
                     <div className="absolute w-16 h-16 bg-blue-400 bg-opacity-50 rounded-full -z-10" /> // Голубой полупрозрачный кружок
                   )}
-                  <a href={links[index]} className="text-white text-center mt-2 mx-0 hover:text-gray-400">
+                  <Link href={links[index]} className="text-white text-center mt-2 mx-0 hover:text-gray-400">
                     <IconComponent sx={{ color: "white", pointerEvents: "none" }} />
-                  </a>
+                  </Link>
                   <p className="text-sm">{text}</p>
                 </div>
               </div>
