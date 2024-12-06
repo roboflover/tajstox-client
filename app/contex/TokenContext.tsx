@@ -28,6 +28,7 @@ export const TokenProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
 // Хук для использования контекста
 export const useToken = () => {
+  console.log('Хук для использования контекста')
   const context = useContext(TokenContext);
   if (!context) {
     throw new Error('useToken must be used within a TokenProvider');
