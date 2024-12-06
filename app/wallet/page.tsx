@@ -21,9 +21,9 @@ const Wallet: React.FC = () => {
         try {
             // Вызываем функцию аутентификации из authService
             const { token } = await authenticateUser(initDataRaw);
+            console.log(token)
             setToken(token);
             // Сохраняем токен и имя пользователя
-            //setToken(token);
             document.cookie = `jwtToken=${token}; path=/; Secure; SameSite=Strict`;
 
             // Загружаем очки пользователя
