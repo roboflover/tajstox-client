@@ -22,9 +22,9 @@ const Home: React.FC = () => {
         try {
             console.log('token', token)
             const response = await axios.post('/api/setScore', {score}, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
+                // headers: {
+                //     Authorization: `Bearer ${token}`,
+                // }
             });
             // console.log(response.data);
             setScore(response.data.data.data.score);
