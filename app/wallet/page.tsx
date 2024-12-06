@@ -5,12 +5,14 @@ import Logosmall from "./ton_symbol.svg"
 import profilePic from '../logo.jpg'
 import Image from 'next/image'
 import { useScore } from '../contex/ScoreContext';
+import { useToken } from '../contex/TokenContext'; 
 import { authenticateUser, fetchUserScore } from '../services/apiService';
 import { useCallback, useEffect } from "react";
 import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 const Wallet: React.FC = () => {
     const { score, setScore } = useScore();
+    const { setToken } = useToken(); 
     // const [token, setToken] = useState('')
 
     const sendInitDataToServer = useCallback(async () => {
@@ -19,6 +21,7 @@ const Wallet: React.FC = () => {
         try {
             // Вызываем функцию аутентификации из authService
             const { token } = await authenticateUser(initDataRaw);
+            setToken(token);
             // Сохраняем токен и имя пользователя
             //setToken(token);
             document.cookie = `jwtToken=${token}; path=/; Secure; SameSite=Strict`;
