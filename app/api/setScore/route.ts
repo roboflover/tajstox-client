@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
   try {
     // Парсинг тела запроса
     const { score } = await req.json();
-
+    console.log(`Bearer ${jwtToken.value}`)
     // Отправка данных на сервер вашего приложения
     const response = await axios.patch(`${host}/server/users/setScore`, {score}, {
         headers: {
