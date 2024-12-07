@@ -6,6 +6,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 // Функция для декодирования JWT
 function parseJwt(token: string) {
   try {
+    console.log('Parsing JWT:', token); // Лог перед началом парсинга
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(
@@ -17,7 +18,9 @@ function parseJwt(token: string) {
         .join('')
     );
 
-    return JSON.parse(jsonPayload);
+    const parsedData = JSON.parse(jsonPayload);
+    console.log('Parsed JWT Data:', parsedData); // Лог результата парсинга
+    return parsedData;
   } catch (error) {
     console.error('Failed to parse JWT', error);
     return null;
@@ -30,19 +33,27 @@ const InviteFriend: React.FC = () => {
 
   useEffect(() => {
     if (token) {
-      console.log('Token:', token);
+      console.log('Token received from context:', token); // Лог токена из контекста
       const userData = parseJwt(token);
       if (userData?.id) {
+        console.log('User ID extracted from token:', userData.id); // Лог извлеченного userId
         setUserId(userData.id); // Устанавливаем ID пользователя из токена
+      } else {
+        console.warn('No user ID found in token'); // Лог если userId отсутствует
       }
+    } else {
+      console.warn('No token available in context'); // Лог если токен отсутствует
     }
   }, [token]);
 
   // Генерация реферальной ссылки с использованием userId
   const referralLink = useMemo(() => {
     if (userId) {
-      return`${process.env.NEXT_PUBLIC_SITE_URL}/register?referralId=${userId}`;
+      const link = `${process.env.NEXT_PUBLIC_SITE_URL}/register?referralId=${userId}`;
+      console.log('Generated referral link:', link); // Лог сгенерированной ссылки
+      return link;
     }
+    console.warn('User ID is not set, referral link cannot be generated'); // Лог если userId отсутствует
     return '';
   }, [userId]);
 
@@ -50,8 +61,10 @@ const InviteFriend: React.FC = () => {
     if (referralLink) {
       navigator.clipboard.writeText(referralLink);
       alert('Referral link copied to clipboard!');
+      console.log('Referral link copied to clipboard:', referralLink); // Лог успешного копирования
     } else {
       alert('No referral link available to copy.');
+      console.warn('Attempted to copy an empty referral link'); // Лог если ссылка пустая
     }
   };
 
