@@ -35,9 +35,9 @@ const InviteFriend: React.FC = () => {
     if (token) {
       console.log('Token received from context:', token); // Лог токена из контекста
       const userData = parseJwt(token);
-      if (userData?.id) {
-        console.log('User ID extracted from token:', userData.id); // Лог извлеченного userId
-        setUserId(userData.id); // Устанавливаем ID пользователя из токена
+      if (userData?.telegramId) {
+        console.log('User ID extracted from token:', userData.telegramId); // Лог извлеченного userId
+        setUserId(userData.telegramId); // Устанавливаем ID пользователя из токена
       } else {
         console.warn('No user ID found in token'); // Лог если userId отсутствует
       }
