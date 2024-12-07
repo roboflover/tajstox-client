@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState, FormEvent } from 'react';
 import { useRouter } from 'next/router';
 
@@ -7,7 +9,7 @@ interface RegisterResponse {
 }
 
 export default function Register() {
-    
+
   const router = useRouter();
   const [telegramId, setTelegramId] = useState<string>('');
   const [username, setUsername] = useState<string>('');
