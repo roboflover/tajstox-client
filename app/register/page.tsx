@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 interface RegisterResponse {
   message: string;
@@ -9,8 +9,8 @@ interface RegisterResponse {
 }
 
 export default function Register() {
+  const searchParams = useSearchParams()
 
-  const router = useRouter();
   const [telegramId, setTelegramId] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
@@ -19,13 +19,14 @@ export default function Register() {
 
   useEffect(() => {
     // Извлекаем referralId из URL
-    const { referralId } = router.query;
+    // const { referralId } = router.query;
+    const referralId = searchParams.get('referralId')
     if (typeof referralId === 'string') {
       setReferralId(referralId);
       console.log(referralId)
     }
     
-  }, [router.query, referralId]);
+  }, [referralId]);
 
   const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
