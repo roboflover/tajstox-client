@@ -1,72 +1,59 @@
 'use client'
 
 import { useToken } from '@/app/contex/TokenContext';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useImperativeHandle, forwardRef } from 'react';
 
-// Функция для декодирования JWT
 function parseJwt(token: string) {
   try {
-    console.log('Parsing JWT:', token); // Лог перед началом парсинга
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(
       atob(base64)
         .split('')
-        .map(function (c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        })
+        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
         .join('')
     );
-
-    const parsedData = JSON.parse(jsonPayload);
-    console.log('Parsed JWT Data:', parsedData); // Лог результата парсинга
-    return parsedData;
-  } catch (error) {
-    console.error('Failed to parse JWT', error);
+    return JSON.parse(jsonPayload);
+  } catch {
     return null;
   }
 }
 
-const InviteFriend: React.FC = () => {
-  const { token } = useToken(); // Получаем токен из контекста
+type InviteFriendProps = {};
+
+export interface InviteFriendRef {
+  copyToClipboard: () => void;
+}
+
+const InviteFriend = forwardRef<InviteFriendRef, InviteFriendProps>((props, ref) => {
+  const { token } = useToken();
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     if (token) {
-      console.log('Token received from context:', token); // Лог токена из контекста
       const userData = parseJwt(token);
-      if (userData?.telegramId) {
-        console.log('User ID extracted from token:', userData.telegramId); // Лог извлеченного userId
-        setUserId(userData.telegramId); // Устанавливаем ID пользователя из токена
-      } else {
-        console.warn('No user ID found in token'); // Лог если userId отсутствует
-      }
-    } else {
-      console.warn('No token available in context'); // Лог если токен отсутствует
+      if (userData?.telegramId) setUserId(userData.telegramId);
     }
   }, [token]);
 
-  // Генерация реферальной ссылки с использованием userId
-  const referralLink = useMemo(() => {
-    if (userId) {
-      const link = `${process.env.NEXT_PUBLIC_SITE_URL}/register?referralId=${userId}`;
-      console.log('Generated referral link:', link); // Лог сгенерированной ссылки
-      return link;
-    }
-    console.warn('User ID is not set, referral link cannot be generated'); // Лог если userId отсутствует
-    return '';
-  }, [userId]);
+  const referralLink = useMemo(
+    () => (userId ? `${process.env.NEXT_PUBLIC_SITE_URL}/register?referralId=${userId}` : ''),
+    [userId]
+  );
 
   const copyToClipboard = () => {
     if (referralLink) {
       navigator.clipboard.writeText(referralLink);
       alert('Referral link copied to clipboard!');
-      console.log('Referral link copied to clipboard:', referralLink); // Лог успешного копирования
     } else {
       alert('No referral link available to copy.');
-      console.warn('Attempted to copy an empty referral link'); // Лог если ссылка пустая
     }
   };
+
+  // Expose the copyToClipboard method via the ref
+  useImperativeHandle(ref, () => ({
+    copyToClipboard,
+  }));
 
   return (
     <div>
@@ -82,6 +69,8 @@ const InviteFriend: React.FC = () => {
       </button>
     </div>
   );
-};
+});
+
+InviteFriend.displayName = 'InviteFriend';
 
 export default InviteFriend;
