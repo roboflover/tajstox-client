@@ -1,8 +1,7 @@
 'use client'
 
-import { useToken } from '@/app/contex/TokenContext'
-
-import React, { useState, useEffect } from 'react';
+import { useToken } from '@/app/contex/TokenContext';
+import React, { useState, useEffect, useMemo } from 'react';
 
 // Функция для декодирования JWT
 function parseJwt(token: string) {
@@ -28,24 +27,32 @@ function parseJwt(token: string) {
 const InviteFriend: React.FC = () => {
   const { token } = useToken(); // Получаем токен из контекста
   const [userId, setUserId] = useState<string | null>(null);
-  // console.log('token', token)
-  // Пример использования
-
-  // const jwtToken = req.cookies.get('jwtToken');
 
   useEffect(() => {
     if (token) {
-      console.log('token invite JWT', token)
+      console.log('Token:', token);
       const userData = parseJwt(token);
-      setUserId(userData?.id);
+      if (userData?.id) {
+        setUserId(userData.id); // Устанавливаем ID пользователя из токена
+      }
     }
   }, [token]);
 
-  const referralLink = `${process.env.NEXT_PUBLIC_SITE_URL}/register?referralId=${userId}`;
-  
+  // Генерация реферальной ссылки с использованием userId
+  const referralLink = useMemo(() => {
+    if (userId) {
+      return`${process.env.NEXT_PUBLIC_SITE_URL}/register?referralId=${userId}`;
+    }
+    return '';
+  }, [userId]);
+
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(referralLink);
-    alert('Referral link copied to clipboard!');
+    if (referralLink) {
+      navigator.clipboard.writeText(referralLink);
+      alert('Referral link copied to clipboard!');
+    } else {
+      alert('No referral link available to copy.');
+    }
   };
 
   return (

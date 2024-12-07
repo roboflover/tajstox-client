@@ -15,7 +15,7 @@ export const TokenProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // Оборачиваем setTokenState для добавления логирования
   const setToken = (newToken: string | null) => {
-    console.log('Updating token:', newToken); // Логируем новое значение токена
+    // console.log('Updating token:', newToken); // Логируем новое значение токена
     setTokenState(newToken);
   };
 
@@ -28,7 +28,7 @@ export const TokenProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
 // Хук для использования контекста
 export const useToken = () => {
-  console.log('Хук для использования контекста')
+  // console.log('Хук для использования контекста')
   const context = useContext(TokenContext);
   if (!context) {
     throw new Error('useToken must be used within a TokenProvider');
