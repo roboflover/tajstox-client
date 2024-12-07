@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, FormEvent } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface RegisterResponse {
   message: string;
