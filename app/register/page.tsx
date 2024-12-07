@@ -19,29 +19,31 @@ export default function Register() {
     const { referralId } = router.query;
     if (typeof referralId === 'string') {
       setReferralId(referralId);
+      console.log(referralId)
     }
-  }, [router.query]);
+    
+  }, [router.query, referralId]);
 
   const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
 
-    try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ telegramId, username, firstName, authPayload, referralId }),
-      });
+    // try {
+    //   const response = await fetch('/api/auth/register', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ telegramId, username, firstName, authPayload, referralId }),
+    //   });
 
-      const data: RegisterResponse = await response.json();
+    //   const data: RegisterResponse = await response.json();
 
-      if (response.ok) {
-        console.log('User registered successfully:', data);
-      } else {
-        console.error('Error registering user:', data.message);
-      }
-    } catch (error) {
-      console.error('Unexpected error during registration:', error);
-    }
+    //   if (response.ok) {
+    //     console.log('User registered successfully:', data);
+    //   } else {
+    //     console.error('Error registering user:', data.message);
+    //   }
+    // } catch (error) {
+    //   console.error('Unexpected error during registration:', error);
+    // }
   };
 
   return (
