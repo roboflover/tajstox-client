@@ -57,16 +57,7 @@ const InviteFriend = forwardRef<InviteFriendRef, InviteFriendProps>((props, ref)
 
   return (
     <div>
-      <p>Invite a friend using this referral link:</p>
-      <input
-        type="text"
-        value={referralLink}
-        readOnly
-        style={{ backgroundColor: 'black', color: 'white' }}
-      />
-      <button onClick={copyToClipboard} className="copy-button">
-        Copy Referral Link
-      </button>
+
     </div>
   );
 });
