@@ -19,7 +19,7 @@ function parseJwt(token: string) {
   }
 }
 
-type InviteFriendProps = {};
+type InviteFriendProps = object;
 
 export interface InviteFriendRef {
   copyToClipboard: () => void;
