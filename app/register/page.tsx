@@ -21,9 +21,10 @@ export default function Register() {
     // Извлекаем referralId из URL
     // const { referralId } = router.query;
     const referralId = searchParams.get('referralId')
+    console.log(referralId)
     if (typeof referralId === 'string') {
       setReferralId(referralId);
-      console.log(referralId)
+      console.log('if typeof', referralId)
     }
     
   }, [referralId]);
