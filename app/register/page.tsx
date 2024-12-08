@@ -1,87 +1,51 @@
-'use client'
+'use client';
 
-import { useEffect, useState, FormEvent } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-
-interface RegisterResponse {
-  message: string;
-  [key: string]: any; // для дополнительных данных в ответе
-}
+import { authenticateUser, addReferralLink } from '../services/apiService';
+import { retrieveLaunchParams } from '@telegram-apps/sdk';
 
 export default function Register() {
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
 
-  const [telegramId, setTelegramId] = useState<string>('');
-  const [username, setUsername] = useState<string>('');
-  const [firstName, setFirstName] = useState<string>('');
-  const [authPayload, setAuthPayload] = useState<string>('');
   const [referralId, setReferralId] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Извлекаем referralId из URL
-    // const { referralId } = router.query;
-    const referralId = searchParams.get('referralId')
-    console.log(referralId)
-    if (typeof referralId === 'string') {
-      setReferralId(referralId);
-      console.log('if typeof', referralId)
+  const sendInitDataToServer = useCallback(async () => {
+    if (!referralId) {
+      // Если referralId отсутствует, не выполняем запрос
+      return;
     }
-    
+
+    try {
+      // Получаем данные запуска Telegram
+      const { initDataRaw } = retrieveLaunchParams();
+
+      // Аутентифицируем пользователя
+      const { token } = await authenticateUser(initDataRaw);
+
+      // Сохраняем токен в cookie
+      document.cookie = `jwtToken=${token}; path=/; Secure; SameSite=Strict`;
+      
+      // Загружаем реферальную ссылку на сервер
+      const result = await addReferralLink(token, referralId);
+      console.log('Referral link added successfully:', result);
+    } catch (error) {
+      console.error('Error sending data to server:', error);
+    }
   }, [referralId]);
 
-  const handleSubmit = async (e: FormEvent): Promise<void> => {
-    e.preventDefault();
+  useEffect(() => {
+    // Проверяем наличие referralId в параметрах URL
+    const referralIdFromParams = searchParams.get('referralId');
+    if (typeof referralIdFromParams === 'string') {
+      setReferralId(referralIdFromParams);
+    }
+  }, [searchParams]);
 
-    // try {
-    //   const response = await fetch('/api/auth/register', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ telegramId, username, firstName, authPayload, referralId }),
-    //   });
+  useEffect(() => {
+    // Отправляем данные на сервер только после установки referralId
+    sendInitDataToServer();
+  }, [sendInitDataToServer]);
 
-    //   const data: RegisterResponse = await response.json();
-
-    //   if (response.ok) {
-    //     console.log('User registered successfully:', data);
-    //   } else {
-    //     console.error('Error registering user:', data.message);
-    //   }
-    // } catch (error) {
-    //   console.error('Unexpected error during registration:', error);
-    // }
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Telegram ID"
-        value={telegramId}
-        onChange={(e) => setTelegramId(e.target.value)}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        required
-      />
-      <input
-        type="text"
-        placeholder="First Name"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Auth Payload"
-        value={authPayload}
-        onChange={(e) => setAuthPayload(e.target.value)}
-        required
-      />
-      <button type="submit">Register</button>
-    </form>
-  );
+  return <div></div>;
 }
