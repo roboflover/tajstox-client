@@ -22,13 +22,8 @@ const Home: React.FC = () => {
 
     const handleClick = async () => {
         try {
-            console.log('token', token)
             const response = await axios.post('/api/setScore', {score}, {
-                // headers: {
-                //     Authorization: `Bearer ${token}`,
-                // }
             });
-            // console.log(response.data);
             setScore(response.data.data.data.score);
         } catch (error) {
             console.log(error);
@@ -51,7 +46,7 @@ const Home: React.FC = () => {
             console.log('Referral ID:', refferId); // Выводим значение
             console.log('token:', token); // Выводим значение
 
-            const result = await addReferralLink(token, refferId);
+            const result = await addReferralLink(refferId);
             console.log('Server response:', result);
           }
         } catch (error) {

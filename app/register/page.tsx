@@ -27,7 +27,7 @@ export default function Register() {
       document.cookie = `jwtToken=${token}; path=/; Secure; SameSite=Strict`;
       
       // Загружаем реферальную ссылку на сервер
-      const result = await addReferralLink(token, referralId);
+      const result = await addReferralLink(referralId);
       console.log('Referral link added successfully:', result);
     } catch (error) {
       console.error('Error sending data to server:', error);

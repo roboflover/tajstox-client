@@ -15,7 +15,9 @@ export async function POST(req: NextRequest) {
   try {
     // Парсинг тела запроса
     const { referralCode } = await req.json();
-    console.log(`referralCode Bearer ${jwtToken.value}`)
+    console.log(`Bearer ${jwtToken.value}`)
+    console.log(`referralCode ${referralCode}`)
+
     // // Отправка данных на сервер вашего приложения
     // const response = await axios.post(`${host}/server/users/addReferral`, {referralCode}, {
     //     headers: {
