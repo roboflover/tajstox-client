@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TelegramAuth from './components/TelegramAuth';
 import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
@@ -17,6 +17,7 @@ const Home: React.FC = () => {
     const [token] = useState('');
     const [level] = useState(1);
     const [team] = useState('Tajstox Command');
+    const [queryString, setQueryString] = useState('0')
 
     const handleClick = async () => {
         try {
@@ -32,6 +33,16 @@ const Home: React.FC = () => {
             console.log(error);
         }
     };
+
+    useEffect(() => {
+        // Извлечение параметра startupp из URL
+        const queryS = window.location.search;
+        setQueryString(queryS)
+        if (queryString !== '0') {
+          console.log('Referral ID:', queryString);
+        
+        }
+      }, [queryString]);
 
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
