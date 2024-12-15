@@ -49,6 +49,8 @@ const Home: React.FC = () => {
   
           if (refferId) {
             console.log('Referral ID:', refferId); // Выводим значение
+            console.log('token:', token); // Выводим значение
+
             const result = await addReferralLink(token, refferId);
             console.log('Server response:', result);
           }
