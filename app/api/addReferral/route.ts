@@ -6,16 +6,18 @@ export async function POST(req: NextRequest) {
   const host = process.env.NEXT_PUBLIC_SERVER;
   // Извлечение JWT из cookies
   const jwtToken = req.cookies.get('jwtToken');
+  
+  if(jwtToken)
+  console.log(`Bearer ${jwtToken.value}`)
 
-  if (!jwtToken) {
-    // Возвращаем ошибку, если токен отсутствует
-    return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
-  }
+  // if (!jwtToken) {
+  //   // Возвращаем ошибку, если токен отсутствует
+  //   return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+  // }
 
   try {
     // Парсинг тела запроса
     const { referralCode } = await req.json();
-    console.log(`Bearer ${jwtToken.value}`)
     console.log(`referralCode ${referralCode}`)
 
     // // Отправка данных на сервер вашего приложения
