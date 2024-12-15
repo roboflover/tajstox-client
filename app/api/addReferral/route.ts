@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     // );
     // console.log(response.data)
     // Возврат успешного ответа клиенту
-    // return NextResponse.json({ success: true, data: response.data });
+    return NextResponse.json({ success: true, data: 'response.data' });
   } catch (error) {
     console.error('Error sending referral:', error);
 
