@@ -38,7 +38,7 @@ const Home: React.FC = () => {
         // Извлечение параметра startapp из URL
         const queryS = window.location.search;
         setQueryString(queryS); // Сохраняем всю строку запроса
-      
+        console.log(queryString)
         const urlParams = new URLSearchParams(queryS);
         const startAppValue = urlParams.get('startapp'); // Извлекаем значение параметра startapp
       
