@@ -8,6 +8,7 @@ import { grey } from '@mui/material/colors';
 import Image from 'next/image'
 import profilePic from './logo.jpg'
 import { useScore } from './contex/ScoreContext';
+import { addReferralLink } from './services/apiService';
 
 const Home: React.FC = () => {
 
@@ -35,18 +36,31 @@ const Home: React.FC = () => {
     };
 
     useEffect(() => {
-        // Извлечение параметра startapp из URL
-        const queryS = window.location.search;
-        setQueryString(queryS); // Сохраняем всю строку запроса
-        const urlParams = new URLSearchParams(queryString);
-        const startAppValue = urlParams.get('tgWebAppStartParam'); // Извлекаем значение параметра startapp
-        console.log('startAppValue', startAppValue)
-
-        if (startAppValue) {
-          console.log('Referral ID:', startAppValue); // Выводим значение
+      // Асинхронная функция для обработки данных
+      const processReferral = async () => {
+        try {
+          // Извлечение параметра startapp из URL
+          const queryS = window.location.search;
+          setQueryString(queryS); // Сохраняем всю строку запроса
+          const urlParams = new URLSearchParams(queryS); // Используем queryS напрямую
+          const refferId = urlParams.get('tgWebAppStartParam'); // Извлекаем значение параметра startapp
+  
+          console.log('startAppValue', refferId);
+  
+          if (refferId) {
+            console.log('Referral ID:', refferId); // Выводим значение
+            const result = await addReferralLink(token, refferId);
+            console.log('Server response:', result);
+          }
+        } catch (error) {
+          console.error('Error sending data to server:', error);
         }
-      }, [queryString]);
-      
+      };
+  
+      // Вызов асинхронной функции
+      processReferral();
+    }, [token]); // Зависимость только от token, queryString больше не нужен
+
 
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
