@@ -45,7 +45,7 @@ const Home: React.FC = () => {
         if (startAppValue) {
           console.log('Referral ID:', startAppValue); // Выводим значение
         }
-      }, []);
+      }, [queryString]);
       
 
     return (
