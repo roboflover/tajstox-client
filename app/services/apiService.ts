@@ -44,9 +44,10 @@ export const authenticateUser = async (initDataRaw: string|undefined): Promise<{
 export const addReferralLink = async (token: string, referralCode: string): Promise<{ success: boolean; message: string }> => {
     try {
         const response = await axios.post('/api/addReferral', { referralCode }, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
+
+            // headers: {
+            //     Authorization: `Bearer ${token}`,
+            // },
         });
 
         return {
