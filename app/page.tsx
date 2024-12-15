@@ -35,14 +35,18 @@ const Home: React.FC = () => {
     };
 
     useEffect(() => {
-        // Извлечение параметра startupp из URL
+        // Извлечение параметра startapp из URL
         const queryS = window.location.search;
-        setQueryString(queryS)
-        if (queryString !== '0') {
-          console.log('Referral ID:', queryString);
-        
+        setQueryString(queryS); // Сохраняем всю строку запроса
+      
+        const urlParams = new URLSearchParams(queryS);
+        const startAppValue = urlParams.get('startapp'); // Извлекаем значение параметра startapp
+      
+        if (startAppValue) {
+          console.log('Referral ID:', startAppValue); // Выводим значение
         }
-      }, [queryString]);
+      }, []);
+      
 
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
