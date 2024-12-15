@@ -16,16 +16,16 @@ export async function POST(req: NextRequest) {
     // Парсинг тела запроса
     const { referralCode } = await req.json();
     console.log(`referralCode Bearer ${jwtToken.value}`)
-    // Отправка данных на сервер вашего приложения
-    const response = await axios.post(`${host}/server/users/addReferral`, {referralCode}, {
-        headers: {
-          Authorization: `Bearer ${jwtToken.value}`,
-        },
-      }
-    );
+    // // Отправка данных на сервер вашего приложения
+    // const response = await axios.post(`${host}/server/users/addReferral`, {referralCode}, {
+    //     headers: {
+    //       Authorization: `Bearer ${jwtToken.value}`,
+    //     },
+    //   }
+    // );
     // console.log(response.data)
     // Возврат успешного ответа клиенту
-    return NextResponse.json({ success: true, data: response.data });
+    // return NextResponse.json({ success: true, data: response.data });
   } catch (error) {
     console.error('Error sending referral:', error);
 
