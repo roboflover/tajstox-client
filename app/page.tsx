@@ -40,7 +40,7 @@ const Home: React.FC = () => {
         setQueryString(queryS); // Сохраняем всю строку запроса
         console.log(queryString)
         const urlParams = new URLSearchParams(queryString);
-        const startAppValue = urlParams.get('startapp'); // Извлекаем значение параметра startapp
+        const startAppValue = urlParams.get('tgWebAppStartParam'); // Извлекаем значение параметра startapp
       
         if (startAppValue) {
           console.log('Referral ID:', startAppValue); // Выводим значение
