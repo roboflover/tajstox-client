@@ -3,18 +3,16 @@ import { retrieveLaunchParams } from '@telegram-apps/sdk';
 import { useScore } from '../contex/ScoreContext';
 import { fetchUserScore } from '../services/apiService';
 import { authenticateUser } from '../services/apiService'; // Импортируем функцию аутентификации
-import { useToken } from '../contex/TokenContext'; 
+import { useToken } from '../contex/TokenContext';
 
 interface TelegramAuthProps {
-    setFirstName: (name: string) => void; 
-    externalSetToken: (token: string ) => void;
+    setFirstName: (name: string) => void;
+    externalSetToken: (token: string) => void; // Переименовали пропс setToken в externalSetToken
 }
-
-
 
 const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, externalSetToken }) => {
     const { setScore } = useScore();
-    const { setToken } = useToken(); 
+    const { setToken } = useToken(); // Это setToken из контекста
 
     const sendInitDataToServer = useCallback(async () => {
         const { initDataRaw } = retrieveLaunchParams();
@@ -23,10 +21,11 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, externalSetTo
             // Вызываем функцию аутентификации из authService
             const { token, parsedData } = await authenticateUser(initDataRaw);
 
-            // Сохраняем токен и имя пользователя
-            setToken(token);
-            externalSetToken(token)
-            console.log('TelegramAuth token', token)
+            // Сохраняем токен через оба метода
+            setToken(token); // Сохраняем токен в контекст через хук useToken
+            externalSetToken(token); // Вызываем функцию, переданную через пропсы
+            console.log('TelegramAuth token', token);
+
             document.cookie = `jwtToken=${token}; path=/; Secure; SameSite=Strict`;
             setFirstName(parsedData.user.firstName);
 
@@ -35,7 +34,7 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, externalSetTo
         } catch (error) {
             console.error('Error:', error);
         }
-    }, [setFirstName, setToken, setScore]);
+    }, [setFirstName, externalSetToken, setToken, setScore]);
 
     useEffect(() => {
         sendInitDataToServer();
