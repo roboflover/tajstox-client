@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   // Извлечение JWT из cookies
   const jwtToken = req.cookies.get('jwtToken');
   
-  if(jwtToken)
+  if(jwtToken){
   console.log(`Bearer ${jwtToken.value}`)
 
   // if (!jwtToken) {
@@ -20,13 +20,13 @@ export async function POST(req: NextRequest) {
     const { referralCode } = await req.json();
     console.log(`referralCode ${referralCode}`)
 
-    // // Отправка данных на сервер вашего приложения
-    // const response = await axios.post(`${host}/server/users/addReferral`, {referralCode}, {
-    //     headers: {
-    //       Authorization: `Bearer ${jwtToken.value}`,
-    //     },
-    //   }
-    // );
+    // Отправка данных на сервер вашего приложения
+    const response = await axios.post(`${host}/server/users/addReferral`, {referralCode}, {
+        headers: {
+          Authorization: `Bearer ${jwtToken.value}`,
+        },
+      }
+    );
     // console.log(response.data)
     // Возврат успешного ответа клиенту
     return NextResponse.json({ success: true, data: 'response.data' });
@@ -36,4 +36,6 @@ export async function POST(req: NextRequest) {
     // Возврат ошибки клиенту
     return NextResponse.json({ success: false, error: 'Failed to update referal.' }, { status: 500 });
   }
+
+}
 }

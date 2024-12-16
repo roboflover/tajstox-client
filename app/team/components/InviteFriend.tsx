@@ -40,7 +40,7 @@ const InviteFriend = forwardRef<InviteFriendRef, InviteFriendProps>((props, ref)
     () => (userId ? `https://t.me/Tajstoxbot?startapp=${userId}` : ''),
     [userId]
   );
-// https://t.me/Tajstoxbot?startapp=7236622499
+
   const copyToClipboard = () => {
     if (referralLink) {
       navigator.clipboard.writeText(referralLink);
