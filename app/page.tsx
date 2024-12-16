@@ -31,37 +31,40 @@ const Home: React.FC = () => {
     };
 
     useEffect(() => {
-      // Асинхронная функция для обработки данных
-      const processReferral = async () => {
-        try {
-          // Извлечение параметра startapp из URL
-          const queryS = window.location.search;
-          setQueryString(queryS); // Сохраняем всю строку запроса
-          const urlParams = new URLSearchParams(queryS); // Используем queryS напрямую
-          const refferId = urlParams.get('tgWebAppStartParam'); // Извлекаем значение параметра startapp
-  
-          console.log('startAppValue', refferId);
-  
-          if (refferId) {
-            console.log('Referral ID:', refferId); // Выводим значение
-            console.log('token:', token); // Выводим значение
-
-            const result = await addReferralLink(refferId);
-            console.log('Server response:', result);
-          }
-        } catch (error) {
-          console.error('Error sending data to server:', error);
+        // Проверяем, что token не пустой
+        if (token !== '') {
+          // Асинхронная функция для обработки данных
+          const processReferral = async () => {
+            try {
+              // Извлечение параметра startapp из URL
+              const queryS = window.location.search;
+              setQueryString(queryS); // Сохраняем всю строку запроса
+              const urlParams = new URLSearchParams(queryS); // Используем queryS напрямую
+              const refferId = urlParams.get('tgWebAppStartParam'); // Извлекаем значение параметра startapp
+      
+              console.log('startAppValue', refferId);
+      
+              if (refferId) {
+                console.log('Referral ID:', refferId); // Выводим значение
+                console.log('token:', token); // Выводим значение
+      
+                const result = await addReferralLink(refferId);
+                console.log('Server response:', result);
+              }
+            } catch (error) {
+              console.error('Error sending data to server:', error);
+            }
+          };
+      
+          // Вызов асинхронной функции
+          processReferral();
         }
-      };
-  
-      // Вызов асинхронной функции
-      processReferral();
-    }, [token]); // Зависимость только от token, queryString больше не нужен
-
+      }, [token]); // Зависимость только от token
+      
 
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-            <TelegramAuth setFirstName={setFirstName} />
+            <TelegramAuth setFirstName={setFirstName} externalSetToken={setToken} />
             <div
                 className="flex items-center justify-center min-h-screen"
                 style={{
