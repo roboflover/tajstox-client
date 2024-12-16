@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     }
 
     const loginResponse = await userService.login(initData);
-    // console.log(loginResponse)
+    console.log(loginResponse)
     return NextResponse.json(loginResponse, { status: 200 });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -70,6 +70,7 @@ type LoginResponse = {
 // Создание сервиса для взаимодействия с API
 const userService = {
   login: async (initData: string) => {
+
     const response = await axios.post<LoginResponse>(`${host}/server/auth/authenticate`, {
       initData,
     });
