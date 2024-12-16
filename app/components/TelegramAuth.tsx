@@ -7,14 +7,14 @@ import { useToken } from '../contex/TokenContext';
 
 interface TelegramAuthProps {
     setFirstName: (name: string) => void; 
-    // setToken: (token: string ) => void;
+    setToken: (token: string ) => void;
 }
 
 
 
-const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName }) => {
+const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, setToken }) => {
     const { setScore } = useScore();
-    const { setToken } = useToken(); 
+    // const { setToken } = useToken(); 
 
     const sendInitDataToServer = useCallback(async () => {
         const { initDataRaw } = retrieveLaunchParams();
