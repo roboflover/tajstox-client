@@ -7,8 +7,8 @@ export async function POST(req: NextRequest) {
   // Извлечение JWT из cookies
   const jwtToken = req.cookies.get('jwtToken');
   
-  // if(jwtToken){
-  // console.log(`Bearer ${jwtToken.value}`)
+  if(jwtToken)
+  console.log(`Bearer ${jwtToken.value}`)
 
   if (!jwtToken) {
     // Возвращаем ошибку, если токен отсутствует
