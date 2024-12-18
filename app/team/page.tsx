@@ -4,11 +4,26 @@ import HandshakeIcon from '@mui/icons-material/Handshake';
 import { blue } from '@mui/material/colors';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import InviteFriend, { InviteFriendRef } from './components/InviteFriend';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 
 const Team: React.FC = () => {
 
     const inviteFriendRef = useRef<InviteFriendRef>(null);
+    const [refferalCount, setRefferalCount] = useState<number>(0);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.post('/api/refferalCount');
+                setRefferalCount(response.data.referralCount); // Предполагаем, что сервер возвращает referralCount
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchData();
+    }, []); 
 
     const handleCopyClick = () => {
       if (inviteFriendRef.current) {
@@ -25,7 +40,7 @@ const Team: React.FC = () => {
                     <HandshakeIcon  fontSize="large" sx={{ color: blue[500]}} />
                 </div>
                 <div className="flex items-center ml-2 ">
-                <span className="ml-2  font-semibold text-2xl">0 Friends</span>
+                <span className="ml-2  font-semibold text-2xl">0 {refferalCount} Friends</span>
                 </div>
             </div>
             {/* Существующая центральная кнопка */}

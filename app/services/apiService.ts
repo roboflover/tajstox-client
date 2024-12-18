@@ -56,3 +56,17 @@ export const addReferralLink = async (referralCode: string): Promise<{ success: 
         throw error;
     }
 };
+
+// Функция для получения пользовательского score
+export const fetchReferralCount = async (token: string, setRefferalCount: (refferalCount: number) => void) => {
+    try {
+        const response = await axios.get('/api/referralCount', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        setRefferalCount(response.data.data.data); // Устанавливаем score через переданную функцию
+    } catch (error) {
+        console.error('Error fetching score:', error);
+    }
+};
