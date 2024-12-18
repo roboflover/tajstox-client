@@ -10,13 +10,13 @@ import axios from 'axios';
 const Team: React.FC = () => {
 
     const inviteFriendRef = useRef<InviteFriendRef>(null);
-    const [refferalCount, setRefferalCount] = useState<number>(0);
+    const [referralCount, setReferralCount] = useState<number>(0);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/api/refferalCount');
-                setRefferalCount(response.data.referralCount); // Предполагаем, что сервер возвращает referralCount
+                const response = await axios.get('/api/referralCount');
+                setReferralCount(response.data.referralCount); // Предполагаем, что сервер возвращает referralCount
             } catch (error) {
                 console.error(error);
             }
@@ -40,7 +40,7 @@ const Team: React.FC = () => {
                     <HandshakeIcon  fontSize="large" sx={{ color: blue[500]}} />
                 </div>
                 <div className="flex items-center ml-2 ">
-                <span className="ml-2  font-semibold text-2xl">0 {refferalCount} Friends</span>
+                <span className="ml-2  font-semibold text-2xl">0 {referralCount} Friends</span>
                 </div>
             </div>
             {/* Существующая центральная кнопка */}
