@@ -18,7 +18,7 @@ const Home: React.FC = () => {
     const [token, setToken] = useState('');
     const [level] = useState(1);
     const [team] = useState('Tajstox Command');
-    const [queryString, setQueryString] = useState('0')
+    // const [queryString, setQueryString] = useState('0')
 
     const handleClick = async () => {
         try {
@@ -38,7 +38,7 @@ const Home: React.FC = () => {
             try {
               // Извлечение параметра startapp из URL
               const queryS = window.location.search;
-              setQueryString(queryS); // Сохраняем всю строку запроса
+            //   setQueryString(queryS); // Сохраняем всю строку запроса
               const urlParams = new URLSearchParams(queryS); // Используем queryS напрямую
               const refferId = urlParams.get('tgWebAppStartParam'); // Извлекаем значение параметра startapp
       
@@ -129,7 +129,7 @@ const Home: React.FC = () => {
                             <div className="spinner" style={{ width: "25px", height: "25px" }}></div>
                         ) : (
                             // Показать значение score
-                            <span className="font-semibold text-xl">{score}</span>
+                            <span className="font-semibold text-xl">{score.toFixed(1)}</span>
                         )}
                     </span>
                 </div>

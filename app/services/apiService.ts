@@ -27,6 +27,7 @@ interface ParsedData {
 
 export const authenticateUser = async (initDataRaw: string|undefined): Promise<{ token: string; parsedData:ParsedData }> => {
     try {
+
         const response = await axios.post('/api/authenticate', {}, {
             headers: {
                 Authorization: `tma ${initDataRaw}`,
