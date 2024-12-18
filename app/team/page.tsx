@@ -15,15 +15,19 @@ const Team: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/api/referralCount');
-                setReferralCount(response.data.referralCount); // Предполагаем, что сервер возвращает referralCount
+                console.log('Attempting to fetch referral count');
+                const response = await axios.get('/api/referralCount'); // Обратите внимание на GET-запрос
+                console.log('Response received:', response);
+                setReferralCount(response.data.data.referralCount);
             } catch (error) {
-                console.error(error);
+                console.error('Error fetching referral count:', error);
+
             }
         };
-
+    
         fetchData();
-    }, []); 
+    }, []);  // Пустой массив зависимостей
+
 
     const handleCopyClick = () => {
       if (inviteFriendRef.current) {
@@ -40,7 +44,7 @@ const Team: React.FC = () => {
                     <HandshakeIcon  fontSize="large" sx={{ color: blue[500]}} />
                 </div>
                 <div className="flex items-center ml-2 ">
-                <span className="ml-2  font-semibold text-2xl">0 {referralCount} Friends</span>
+                <span className="ml-2  font-semibold text-2xl">{referralCount} Friends</span>
                 </div>
             </div>
             {/* Существующая центральная кнопка */}
