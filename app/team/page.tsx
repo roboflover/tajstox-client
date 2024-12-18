@@ -15,7 +15,7 @@ const Team: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.post('/api/refferalCount');
+                const response = await axios.get('/api/refferalCount');
                 setRefferalCount(response.data.referralCount); // Предполагаем, что сервер возвращает referralCount
             } catch (error) {
                 console.error(error);
