@@ -42,6 +42,21 @@ const InviteFriend = forwardRef<InviteFriendRef, InviteFriendProps>((props, ref)
   );
 
   const copyToClipboard = () => {
+
+    console.log('Window.Telegram:', window.Telegram);
+    if (window.Telegram?.WebApp?.shareText) {
+      console.log('Sharing through Telegram WebApp');
+      window.Telegram.WebApp.shareText(referralLink);
+    } else {
+      console.log('Falling back to clipboard sharing');
+      navigator.clipboard.writeText(referralLink).then(() => {
+        alert('Referral link copied to clipboard!');
+      }).catch(() => {
+        alert('Failed to copy referral link.');
+      });
+    }
+
+
     if (referralLink) {
       // Проверяем, доступен ли Telegram WebApp API
       if (window.Telegram?.WebApp?.shareText) {
@@ -66,12 +81,12 @@ const InviteFriend = forwardRef<InviteFriendRef, InviteFriendProps>((props, ref)
 
   return (
     <div>
-      {/*<button
+      <button
         onClick={copyToClipboard}
         className="flex items-center px-6 py-3 font-semibold text-white rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-300 mt-20 space-x-2"
       >
         <span>Invite a friend</span>
-      </button> */}
+      </button>
     </div>
   );
 });
