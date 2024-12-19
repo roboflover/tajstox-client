@@ -11,7 +11,7 @@ const Team: React.FC = () => {
 
     const inviteFriendRef = useRef<InviteFriendRef>(null);
     const [referralCount, setReferralCount] = useState<number>(0);
-
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -35,6 +35,12 @@ const Team: React.FC = () => {
       }
     };
 
+    const handleClick = () => {
+    if (inviteFriendRef.current) {
+        inviteFriendRef.current.shareOnTelegram();
+    }
+    };
+
     return (
         <div className="space-y-6 mt-20 mr-5 ml-5">  {/* Дополнительно добавили отступ между строками */}
             <InviteFriend ref={inviteFriendRef} />
@@ -49,7 +55,7 @@ const Team: React.FC = () => {
             </div>
             {/* Существующая центральная кнопка */}
             <div className="flex justify-center items-center">
-                <button onClick={handleCopyClick} className="flex items-center px-6 py-3 font-semibold text-white rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-300 mt-20 space-x-2">
+                <button onClick={handleClick} className="flex items-center px-6 py-3 font-semibold text-white rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-300 mt-20 space-x-2">
                     {/* Текст */}
                     <span>Invite a friend</span>
                 </button>
