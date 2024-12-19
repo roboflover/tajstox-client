@@ -16,7 +16,7 @@ const TelegramAuth: React.FC<TelegramAuthProps> = ({ setFirstName, externalSetTo
 
     const sendInitDataToServer = useCallback(async () => {
         const { initDataRaw } = retrieveLaunchParams();
-        // console.log('initDataRaw', initDataRaw)
+        console.log('initDataRaw', initDataRaw)
         try {
             // Вызываем функцию аутентификации из authService
             const { token, parsedData } = await authenticateUser(initDataRaw);
