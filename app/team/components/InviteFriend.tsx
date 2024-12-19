@@ -56,8 +56,8 @@ const InviteFriend = forwardRef<InviteFriendRef, InviteFriendProps>((props, ref)
   };
 
   const shareOnTelegram = () => {
-    const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}`;
-    window.open(telegramUrl, '_blank');
+    // const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}`;
+    // window.open(telegramUrl, '_blank');
   };
 
   // Expose methods via the ref
