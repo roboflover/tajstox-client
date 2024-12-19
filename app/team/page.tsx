@@ -11,7 +11,7 @@ const Team: React.FC = () => {
 
     const inviteFriendRef = useRef<InviteFriendRef>(null);
     const [referralCount, setReferralCount] = useState<number>(0);
-    
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -34,13 +34,6 @@ const Team: React.FC = () => {
         inviteFriendRef.current.copyToClipboard();
       }
     };
-
-
-    const handleClick = () => {
-        if (inviteFriendRef.current) {
-        //   inviteFriendRef.current.navigateToLink(); // Добавленный метод перехода по ссылке
-        }
-      };
 
     return (
         <div className="space-y-6 mt-20 mr-5 ml-5">  {/* Дополнительно добавили отступ между строками */}
