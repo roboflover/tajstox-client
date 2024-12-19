@@ -5,17 +5,14 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
   const host = process.env.NEXT_PUBLIC_SERVER;
-  console.log('Incoming request to /api/referralCount');
 
   // Извлечение JWT из cookies
   const jwtToken = req.cookies.get('jwtToken');
 
   if (!jwtToken) {
-    console.error('JWT token not found in request cookies');
+    // Возвращаем ошибку, если токен отсутствует
     return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
   }
-
-  console.log('JWT token found, proceeding to fetch data');
 
   try {
     const response = await axios.get(`${host}/server/users/referralCount`, {
@@ -24,13 +21,12 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    console.log('Data successfully retrieved from the server', response.data);
-
+    // Возврат успешного ответа клиенту
     return NextResponse.json({ success: true, data: response.data });
   } catch (error) {
-    console.error('Error retrieving score from server:', error);
+    console.error('Error retrieving score:', error);
 
-
+    // Возврат ошибки клиенту
     return NextResponse.json({ success: false, error: 'Failed to retrieve score.' }, { status: 500 });
   }
 }

@@ -3,8 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   const authHeader = req.headers.get('authorization');
-  // console.log('authHeader', authHeader)
-
+  console.log('authHeader', authHeader)
   if (!authHeader) {
     return NextResponse.json({ error: 'Authorization header is missing' }, { status: 400 });
   }
