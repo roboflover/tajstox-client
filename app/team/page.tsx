@@ -38,7 +38,7 @@ const Team: React.FC = () => {
 
     const handleClick = () => {
         if (inviteFriendRef.current) {
-          inviteFriendRef.current.navigateToLink(); // Добавленный метод перехода по ссылке
+        //   inviteFriendRef.current.navigateToLink(); // Добавленный метод перехода по ссылке
         }
       };
 
