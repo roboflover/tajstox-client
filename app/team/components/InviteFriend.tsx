@@ -1,4 +1,3 @@
-
 'use client'
 
 import { useToken } from '@/app/contex/TokenContext';
@@ -24,7 +23,7 @@ type InviteFriendProps = object;
 
 export interface InviteFriendRef {
   copyToClipboard: () => void;
-  shareOnTelegram: () => void;
+  navigateToLink: () => void;
 }
 
 const InviteFriend = forwardRef<InviteFriendRef, InviteFriendProps>((props, ref) => {
@@ -45,30 +44,29 @@ const InviteFriend = forwardRef<InviteFriendRef, InviteFriendProps>((props, ref)
 
   const copyToClipboard = () => {
     if (referralLink) {
-      navigator.clipboard.writeText(referralLink).then(() => {
-        alert('Referral link copied to clipboard!');
-      }).catch(() => {
-        alert('Failed to copy referral link.');
-      });
+      navigator.clipboard.writeText(referralLink);
+      alert('Referral link copied to clipboard!');
     } else {
       alert('No referral link available to copy.');
     }
   };
 
-  const shareOnTelegram = () => {
-    // const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}`;
-    // window.open(telegramUrl, '_blank');
+  const navigateToLink = () => {
+    if (referralLink) {
+      window.open(`https://t.me/share/url?url=${encodeURIComponent(referralLink)}`, '_blank');
+    } else {
+      alert('No referral link available to navigate.');
+    }
   };
 
   // Expose methods via the ref
   useImperativeHandle(ref, () => ({
     copyToClipboard,
-    shareOnTelegram,
+    navigateToLink,
   }));
 
   return (
     <div>
-
     </div>
   );
 });

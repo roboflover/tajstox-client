@@ -35,11 +35,12 @@ const Team: React.FC = () => {
       }
     };
 
+
     const handleClick = () => {
-    if (inviteFriendRef.current) {
-        inviteFriendRef.current.shareOnTelegram();
-    }
-    };
+        if (inviteFriendRef.current) {
+          inviteFriendRef.current.navigateToLink(); // Добавленный метод перехода по ссылке
+        }
+      };
 
     return (
         <div className="space-y-6 mt-20 mr-5 ml-5">  {/* Дополнительно добавили отступ между строками */}
