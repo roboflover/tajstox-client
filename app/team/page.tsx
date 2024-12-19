@@ -15,19 +15,15 @@ const Team: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log('Attempting to fetch referral count');
-                const response = await axios.get('/api/referralCount'); // Обратите внимание на GET-запрос
-                console.log('Response received:', response);
-                setReferralCount(response.data.data.referralCount);
+                const response = await axios.get('/api/referralCount');
+                setReferralCount(response.data.referralCount); // Предполагаем, что сервер возвращает referralCount
             } catch (error) {
-                console.error('Error fetching referral count:', error);
-
+                console.error(error);
             }
         };
-    
-        fetchData();
-    }, []);  // Пустой массив зависимостей
 
+        fetchData();
+    }, []); 
 
     const handleCopyClick = () => {
       if (inviteFriendRef.current) {
