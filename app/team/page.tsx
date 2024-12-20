@@ -61,7 +61,7 @@ const Team: React.FC = () => {
                     ) : (
                         // Показать значение score
                         <span className="font-semibold text-xl">
-                        {referralCount.toFixed(0)} Friends
+                        {referralCount} Friends
                         </span>
                     )}
                     </span>
