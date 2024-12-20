@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
         Authorization: `Bearer ${jwtToken.value}`,
       },
     });
-
+    console.log('response.data reff', response.data)
     // Возврат успешного ответа клиенту
     return NextResponse.json({ success: true, data: response.data });
   } catch (error) {
