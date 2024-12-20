@@ -38,17 +38,17 @@ const InviteFriend = forwardRef<InviteFriendRef, InviteFriendProps>((props, ref)
     console.log('Token from context:', token); // Лог токена из контекста
     if (token) {
       const userData = parseJwt(token);
-      console.log('User data from token:', userData); // Лог данных пользователя
+      // console.log('User data from token:', userData); // Лог данных пользователя
       if (userData?.telegramId) {
         setUserId(userData.telegramId);
-        console.log('Set userId:', userData.telegramId); // Лог установки userId
+        // console.log('Set userId:', userData.telegramId); // Лог установки userId
       }
     }
   }, [token]);
 
   const referralLink = useMemo(() => {
     const link = userId ? `https://t.me/Tajstoxbot?startapp=${userId}` : '';
-    console.log('Generated referral link:', link); // Лог сгенерированной реферальной ссылки
+    // console.log('Generated referral link:', link); // Лог сгенерированной реферальной ссылки
     return link;
   }, [userId]);
 
@@ -56,10 +56,10 @@ const InviteFriend = forwardRef<InviteFriendRef, InviteFriendProps>((props, ref)
     console.log('Copy to clipboard triggered'); // Лог вызова функции копирования
     if (referralLink) {
       navigator.clipboard.writeText(referralLink);
-      console.log('Referral link copied:', referralLink); // Лог скопированной ссылки
+      // console.log('Referral link copied:', referralLink); // Лог скопированной ссылки
       alert('Referral link copied to clipboard!');
     } else {
-      console.warn('No referral link available to copy.'); // Лог предупреждения об отсутствии ссылки
+      // console.warn('No referral link available to copy.'); // Лог предупреждения об отсутствии ссылки
       alert('No referral link available to copy.');
     }
   };
@@ -68,10 +68,10 @@ const InviteFriend = forwardRef<InviteFriendRef, InviteFriendProps>((props, ref)
     console.log('Navigate to link triggered'); // Лог вызова функции перехода по ссылке
     if (referralLink) {
       const encodedLink = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}`;
-      console.log('Navigating to URL:', encodedLink); // Лог перехода по ссылке
+      // console.log('Navigating to URL:', encodedLink); // Лог перехода по ссылке
       window.open(encodedLink, '_blank');
     } else {
-      console.warn('No referral link available to navigate.'); // Лог предупреждения об отсутствии ссылки
+      // console.warn('No referral link available to navigate.'); // Лог предупреждения об отсутствии ссылки
       alert('No referral link available to navigate.');
     }
   };
@@ -84,9 +84,6 @@ const InviteFriend = forwardRef<InviteFriendRef, InviteFriendProps>((props, ref)
 
   return (
     <div>
-      {/* Можно добавить UI для тестирования */}
-      {/* <button onClick={copyToClipboard}>Copy Referral Link</button>
-      <button onClick={navigateToLink}>Share Referral Link</button> */}
     </div>
   );
 });

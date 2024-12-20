@@ -42,14 +42,14 @@ const Home: React.FC = () => {
               const urlParams = new URLSearchParams(queryS); // Используем queryS напрямую
               const refferId = urlParams.get('tgWebAppStartParam'); // Извлекаем значение параметра startapp
       
-              console.log('startAppValue', refferId);
+            //   console.log('startAppValue', refferId);
       
               if (refferId) {
-                console.log('Referral ID:', refferId); // Выводим значение
-                console.log('token:', token); // Выводим значение
+                // console.log('Referral ID:', refferId); // Выводим значение
+                // console.log('token:', token); // Выводим значение
       
                 const result = await addReferralLink(refferId);
-                console.log('Server response:', result);
+                // console.log('Server response:', result);
               }
             } catch (error) {
               console.error('Error sending data to server:', error);
