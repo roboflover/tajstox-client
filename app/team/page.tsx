@@ -46,9 +46,27 @@ const Team: React.FC = () => {
                 <div className="flex items-center ml-2 mb-2">
                     <HandshakeIcon  fontSize="large" sx={{ color: blue[500]}} />
                 </div>
+                {/* <div className="flex items-center ml-2 ">
+                <span className="ml-2  font-semibold text-2xl">{referralCount} Friends</span>
+                </div> */}
+
                 <div className="flex items-center ml-2 ">
-                <span className="ml-2  font-semibold text-2xl">0 {referralCount} Friends</span>
+                <span className="ml-2 font-semibold text-2xl">
+                    {referralCount === 0 ? (
+                        // Вращающееся кольцо
+                        <span>
+                        <div className="spinner" style={{ width: "15px", height: "15px", display: "inline-block" }}></div>
+                        <span className="font-semibold text-xl"> Friends</span>
+                        </span>
+                    ) : (
+                        // Показать значение score
+                        <span className="font-semibold text-xl">
+                        {referralCount.toFixed(0)} Friends
+                        </span>
+                    )}
+                    </span>
                 </div>
+
             </div>
             {/* Существующая центральная кнопка */}
             <div className="flex justify-center items-center">
