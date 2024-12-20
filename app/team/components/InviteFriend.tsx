@@ -85,8 +85,8 @@ const InviteFriend = forwardRef<InviteFriendRef, InviteFriendProps>((props, ref)
   return (
     <div>
       {/* Можно добавить UI для тестирования */}
-      <button onClick={copyToClipboard}>Copy Referral Link</button>
-      <button onClick={navigateToLink}>Share Referral Link</button>
+      {/* <button onClick={copyToClipboard}>Copy Referral Link</button>
+      <button onClick={navigateToLink}>Share Referral Link</button> */}
     </div>
   );
 });
