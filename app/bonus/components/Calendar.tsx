@@ -84,14 +84,14 @@ const Calendar: React.FC = () => {
           return (
             <button
               key={day.day}
-              className={`flex flex-col items-center justify-center w-16 h-16 p-2 text-xs rounded-2xl border-2 ${
+              className={`flex flex-col items-center justify-center w-12 h-12 p-0 text-xs rounded-2xl border-2 ${
                 isToday ? 'bg-blue-700' : 'bg-blue-900'
               } ${isPurchased ? 'border-green-500' : 'border-transparent'}`}
               onClick={() => handleNextDay(day.day, day.bonus)}
             >
-              <div className="font-medium text-blue-100">Day {day.day}</div>
+              <div className="font-medium text-blue-100 text-xs">Day {day.day}</div>
               <GradientCircle />
-              <div className="text-blue-100">{day.bonus}</div>
+              <div className="text-blue-100 text-xs">{day.bonus}</div>
             </button>
           );
         })}
