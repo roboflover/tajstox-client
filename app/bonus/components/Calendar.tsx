@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import GradientCircle from './GradientCircle';
 import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
 import { blue } from '@mui/material/colors';
+import axios from 'axios';
 
 // Тип для структуры дня с бонусами
 interface DayWithBonus {
   day: number;
   bonus: number;
 }
-
 
 const DAYS_COUNT = 15; // Фиксированное количество дней
 
@@ -18,7 +18,14 @@ const calculateBonus = (day: number): number => {
   return bonus > 120 ? 120 : bonus; // Ограничиваем максимальное значение бонуса до 120
 };
 
+const handleButtonClick = (day: DayWithBonus) => {
+  console.log(`Clicked on Day ${day.day}, ${day.bonus}`);
+};
+
+
+
 const Calendar: React.FC = () => {
+
   const [purchasedDay, setPurchasedDay] = useState<number | null>(null); // Состояние для купленного дня
 
   // Генерация массива с фиксированным количеством дней и бонусами
@@ -27,16 +34,24 @@ const Calendar: React.FC = () => {
     bonus: calculateBonus(i + 1), // Используем функцию расчета бонуса
   }));
 
-  // Имитируем запрос к API для получения информации о купленном дне
+  const [activeDay, setActiveDay] = useState<number | null>(null);
+  const [bonus, setBonus] = useState<number>(0);
+  // const userId = 'user123'; // Уникальный ID пользователя
+
   useEffect(() => {
-    const fetchPurchasedDay = async () => {
-      // Здесь можно заменить на реальный API-запрос
-      const simulatedResponse = { purchasedDay: 1 }; // Имитируем, что первый день куплен
-      setPurchasedDay(simulatedResponse.purchasedDay);
+    // Получаем активный день при загрузке страницы
+    const fetchActiveDay = async () => {
+      try {
+        const response = await axios.get(`api/activeDay`, {});
+        setActiveDay(response.data.activeDay);
+      } catch (error) {
+        console.error('Error fetching active day:', error);
+      }
     };
 
-    fetchPurchasedDay();
+    fetchActiveDay();
   }, []);
+
 
   return (
     <div className="p-4 pt-8 flex flex-col items-center justify-center">
@@ -61,16 +76,17 @@ const Calendar: React.FC = () => {
           const isPurchased = day.day === purchasedDay;
 
           return (
-            <div
+            <button
               key={day.day}
               className={`flex flex-col items-center justify-center w-16 h-16 p-2 text-xs rounded-2xl border-2 ${
                 isToday ? 'bg-blue-700' : 'bg-blue-900'
               } ${isPurchased ? 'border-green-500' : 'border-transparent'}`}
+              onClick={() => handleButtonClick(day)}
             >
               <div className="font-medium text-blue-100">Day {day.day}</div>
               <GradientCircle />
               <div className="text-blue-100">{day.bonus}</div>
-            </div>
+            </button>
           );
         })}
       </div>
