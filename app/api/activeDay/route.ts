@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
   try {
     // Парсинг тела запроса
     // Отправка данных на сервер вашего приложения
-    const response = await axios.post(`${host}/server/progress/active-day`, {
+    const response = await axios.get(`${host}/server/progress/active-day`, {
         headers: {
           Authorization: `Bearer ${jwtToken.value}`,
         },
