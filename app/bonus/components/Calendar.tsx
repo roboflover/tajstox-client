@@ -97,7 +97,7 @@ const Calendar: React.FC = () => {
         })}
       </div>
       <div className="flex justify-center items-start">
-        <button className="px-20 py-3 font-semibold text-white rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-300 mt-20">
+        <button className="px-20 py-3 font-semibold text-white rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-300 mt-5">
           Claim
         </button>
       </div>
