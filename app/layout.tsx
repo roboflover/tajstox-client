@@ -57,9 +57,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             >
               {pages.map((text, index) => {
                 const IconComponent = icons[index];
-                console.log('IconComponent', IconComponent)
+                // console.log('IconComponent', IconComponent)
                 const isActive = pathname === links[index]; // Проверка, активна ли ссылка
-                console.log(isActive)
+                // console.log(isActive)
                 return (
                   <React.Fragment key={index}>
                     <div className="flex items-center">
