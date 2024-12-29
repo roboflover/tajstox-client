@@ -44,7 +44,6 @@ const Calendar: React.FC = () => {
     console.log('activeDay', activeDay)
   }, [setActiveDay, setBonus]);
 
-
   const handleNextDay = async (day: number, bonus: number) => {
     try {
       const currentBonus = day * 10;
@@ -56,6 +55,7 @@ const Calendar: React.FC = () => {
 
       setBonus((prev) => prev + currentBonus);
       setActiveDay(response.data.nextDay);
+      console.log('response.data.nextDay', response.data.nextDay)
       setPurchasedDay(day);  // Установите купленный день
 
     } catch (error) {
