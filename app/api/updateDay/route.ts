@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
   try {
     const { activeDay, currentBonus } = await req.json();
 
-    const response = await axios.get(`${host}/server/progress/update-day`, {
+    const response = await axios.post(`${host}/server/progress/update-day`, {
         headers: {
           Authorization: `Bearer ${jwtToken.value}`,
         },
