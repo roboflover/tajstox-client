@@ -17,26 +17,35 @@ export async function POST(req: NextRequest) {
 
   try {
     const { activeDay, currentBonus } = await req.json();
-
-    const response = await axios.post(`${host}/server/progress/update-day`, {
-        headers: {
-          Authorization: `Bearer ${jwtToken.value}`,
-        },
-      params: {
+  
+    // Формируем запрос
+    const response = await axios.post(
+      `${host}/server/progress/update-day`, // URL
+      { // Тело запроса (body)
         day: activeDay,
         bonus: currentBonus,
       },
-    },
+      { // Конфигурация (headers и другие настройки)
+        headers: {
+          Authorization: `Bearer ${jwtToken.value}`, // Корректная строка авторизации
+        },
+      }
     );
-    console.log(response.data)
+  
+    console.log(response.data);
+  
     // Возврат успешного ответа клиенту
     return NextResponse.json({ success: true, data: response.data });
   } catch (error) {
     console.error('Error sending referral:', error);
-
+  
     // Возврат ошибки клиенту
-    return NextResponse.json({ success: false, error: 'Failed to update referal.' }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: 'Failed to update referral.' },
+      { status: 500 }
+    );
   }
+  
 
 // }
 }
