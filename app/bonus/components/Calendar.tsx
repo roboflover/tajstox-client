@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import GradientCircle from './GradientCircle';
 import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
@@ -19,27 +20,28 @@ const calculateBonus = (day: number): number => {
 };
 
 const Calendar: React.FC = () => {
-  const [purchasedDay, setPurchasedDay] = useState<number | null>(null);
-  const daysWithBonuses: DayWithBonus[] = Array.from({ length: DAYS_COUNT }, (_, i) => ({
-    day: i + 1,
-    bonus: calculateBonus(i + 1),
-  }));
+  const daysWithBonuses: DayWithBonus[] = Array.from(
+    { length: DAYS_COUNT },
+    (_, i) => ({
+      day: i + 1,
+      bonus: calculateBonus(i + 1),
+    })
+  );
 
   const [activeDay, setActiveDay] = useState<number | null>(null);
   const [bonus, setBonus] = useState<number>(0);
 
+  const fetchActiveDay = async () => {
+    try {
+      const response = await axios.get('api/activeDay', {});
+      setActiveDay(response.data.data.activeDay);
+      console.log('activeDay', response.data.data.activeDay);
+    } catch (error) {
+      console.error('Error fetching active day:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchActiveDay = async () => {
-      try {
-        const response = await axios.get('api/activeDay', {});
-
-        setActiveDay(response.data.data.activeDay);
-        console.log('activeDay', response.data.data.activeDay)
-      } catch (error) {
-        console.error('Error fetching active day:', error);
-      }
-    };
-
     fetchActiveDay();
   }, []);
 
@@ -53,37 +55,35 @@ const Calendar: React.FC = () => {
 
       if (response.status === 200) {
         toast.success('Day completed!', {
-          position: "top-right",
+          position: 'top-right',
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: 'colored',
         });
-        
-        setBonus((prev) => prev + currentBonus);
-        setActiveDay(response.data.nextDay);
-        setPurchasedDay(day);
-      }
 
+        setBonus((prev) => prev + currentBonus);
+        fetchActiveDay(); // Refresh the active day
+      }
     } catch (error) {
       console.error('Error updating day:', error);
 
       if (axios.isAxiosError(error)) {
         const status = error.response ? error.response.status : null;
-      
+
         if (status === 500) {
           toast.error('Day cannot be completed now', {
-            position: "top-right",
+            position: 'top-right',
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "colored",
+            theme: 'colored',
           });
         }
       }
@@ -93,7 +93,7 @@ const Calendar: React.FC = () => {
   return (
     <div className="p-4 pt-8 flex flex-col items-center justify-center">
       <ToastContainer />
-      <div className='mb-5'>
+      <div className="mb-5">
         <CalendarMonthSharpIcon fontSize="large" sx={{ color: blue[500] }} />
       </div>
 
@@ -115,7 +115,7 @@ const Calendar: React.FC = () => {
               key={day.day}
               className={`flex flex-col items-center justify-center w-12 h-12 p-0 text-xs rounded-2xl border-2 ${
                 isToday ? 'bg-blue-700' : 'bg-blue-900'
-              } ${isPurchased ? 'border-green-500' : isActive ? 'border-green-500' : 'border-transparent'}`}
+              } ${isPurchased || isActive ? 'border-green-500' : 'border-transparent'}`}
               onClick={() => handleNextDay(day.day, day.bonus)}
             >
               <div className="font-medium text-blue-100 text-xs">Day {day.day}</div>
