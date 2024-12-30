@@ -33,7 +33,7 @@ const Calendar: React.FC = () => {
       try {
         const response = await axios.get('api/activeDay', {});
 
-        // setActiveDay(response.data);
+        setActiveDay(response.data.data.activeDay);
         console.log('activeDay', response.data.data.activeDay)
       } catch (error) {
         console.error('Error fetching active day:', error);
