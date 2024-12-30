@@ -75,7 +75,7 @@ const Calendar: React.FC = () => {
         const status = error.response ? error.response.status : null;
 
         if (status === 500) {
-          toast.error('Day cannot be completed now', {
+          toast.error('24 hours are not over yet', {
             position: 'top-right',
             autoClose: 3000,
             hideProgressBar: true,
