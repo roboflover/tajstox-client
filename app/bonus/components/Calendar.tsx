@@ -47,7 +47,7 @@ const Calendar: React.FC = () => {
   const handleNextDay = async (day: number, bonus: number) => {
     try {
       const currentBonus = day * 10;
-
+      console.log('day, bonus', day, bonus)
       const response = await axios.post('api/updateDay', {
         day: day,
         bonus: bonus,
