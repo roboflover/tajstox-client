@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const { activeDay, currentBonus } = await req.json();
-  
+    console.log(activeDay, currentBonus)
     // Формируем запрос
     const response = await axios.post(
       `${host}/server/progress/update-day`, // URL
