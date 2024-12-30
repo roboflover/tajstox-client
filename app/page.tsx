@@ -33,33 +33,34 @@ const Home: React.FC = () => {
     useEffect(() => {
         // Проверяем, что token не пустой
         if (token !== '') {
-          // Асинхронная функция для обработки данных
-          const processReferral = async () => {
-            try {
-              // Извлечение параметра startapp из URL
-              const queryS = window.location.search;
-            //   setQueryString(queryS); // Сохраняем всю строку запроса
-              const urlParams = new URLSearchParams(queryS); // Используем queryS напрямую
-              const refferId = urlParams.get('tgWebAppStartParam'); // Извлекаем значение параметра startapp
-      
-            //   console.log('startAppValue', refferId);
-      
-              if (refferId) {
-                // console.log('Referral ID:', refferId); // Выводим значение
-                // console.log('token:', token); // Выводим значение
-      
-                await addReferralLink(refferId);
-                // console.log('Server response:', result);
-              }
-            } catch (error) {
-              console.error('Error sending data to server:', error);
-            }
-          };
-      
-          // Вызов асинхронной функции
-          processReferral();
+            // Асинхронная функция для обработки данных
+            const processReferral = async () => {
+                try {
+                    // Извлечение параметра startapp из URL
+                    const queryS = window.location.search;
+                    const urlParams = new URLSearchParams(queryS);
+                    const refferId = urlParams.get('tgWebAppStartParam'); // Извлекаем значение параметра startapp
+    
+                    if (refferId) {
+                        await addReferralLink(refferId);
+    
+                        // Открываем бот в новой вкладке
+                        const botUrl = 'https://t.me/Tajstoxbot';
+                        window.open(botUrl, '_blank'); // Открывает бот в новой вкладке
+                        
+                        // Альтернативно: перенаправление на бот
+                        // window.location.href = botUrl;
+                    }
+                } catch (error) {
+                    console.error('Error sending data to server:', error);
+                }
+            };
+    
+            // Вызов асинхронной функции
+            processReferral();
         }
-      }, [token]); // Зависимость только от token
+    }, [token]); // Зависимость только от token
+    
       
 
     return (
