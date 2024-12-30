@@ -16,14 +16,14 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { activeDay, currentBonus } = await req.json();
-    console.log(activeDay, currentBonus)
+    const { day, bonus } = await req.json();
+    console.log(day, bonus)
     // Формируем запрос
     const response = await axios.post(
       `${host}/server/progress/update-day`, // URL
       { // Тело запроса (body)
-        day: activeDay,
-        bonus: currentBonus,
+        day: day,
+        bonus: bonus,
       },
       { // Конфигурация (headers и другие настройки)
         headers: {
