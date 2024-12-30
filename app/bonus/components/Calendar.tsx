@@ -106,13 +106,14 @@ const Calendar: React.FC = () => {
           const today = new Date();
           const isToday = day.day === today.getDate();
           const isPurchased = day.day === purchasedDay;
+          const isActive = day.day === activeDay;
 
           return (
             <button
               key={day.day}
               className={`flex flex-col items-center justify-center w-12 h-12 p-0 text-xs rounded-2xl border-2 ${
                 isToday ? 'bg-blue-700' : 'bg-blue-900'
-              } ${isPurchased ? 'border-green-500' : 'border-transparent'}`}
+              } ${isPurchased ? 'border-green-500' : isActive ? 'border-green-500' : 'border-transparent'}`}
               onClick={() => handleNextDay(day.day, day.bonus)}
             >
               <div className="font-medium text-blue-100 text-xs">Day {day.day}</div>
