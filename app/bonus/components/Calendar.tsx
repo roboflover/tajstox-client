@@ -105,7 +105,7 @@ const Calendar: React.FC = () => {
         {daysWithBonuses.map((day) => {
           const today = new Date();
           const isToday = day.day === today.getDate();
-          const isPurchased = day.day === purchasedDay;
+          const isPurchased = day.day === activeDay;
           const isActive = day.day === activeDay;
 
           return (
