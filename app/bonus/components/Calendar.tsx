@@ -3,6 +3,8 @@ import GradientCircle from './GradientCircle';
 import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
 import { blue } from '@mui/material/colors';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface DayWithBonus {
   day: number;
@@ -39,32 +41,56 @@ const Calendar: React.FC = () => {
     fetchActiveDay();
   }, []);
 
-  useEffect(() => {
-    console.log('bonus', bonus)
-    console.log('activeDay', activeDay)
-  }, [setActiveDay, setBonus]);
-
   const handleNextDay = async (day: number, bonus: number) => {
     try {
       const currentBonus = day * 10;
-      console.log('day, bonus', day, bonus)
       const response = await axios.post('api/updateDay', {
         day: day,
         bonus: bonus,
       });
 
-      setBonus((prev) => prev + currentBonus);
-      setActiveDay(response.data.nextDay);
-      console.log('response.data', response.data)
-      setPurchasedDay(day);  // Установите купленный день
+      if (response.status === 200) {
+        toast.success('Day completed!', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        
+        setBonus((prev) => prev + currentBonus);
+        setActiveDay(response.data.nextDay);
+        setPurchasedDay(day);
+      }
 
     } catch (error) {
       console.error('Error updating day:', error);
+
+      if (axios.isAxiosError(error)) {
+        const status = error.response ? error.response.status : null;
+      
+        if (status === 500) {
+          toast.error('Day cannot be completed now', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+      }
     }
   };
 
   return (
     <div className="p-4 pt-8 flex flex-col items-center justify-center">
+      <ToastContainer />
       <div className='mb-5'>
         <CalendarMonthSharpIcon fontSize="large" sx={{ color: blue[500] }} />
       </div>
@@ -95,11 +121,6 @@ const Calendar: React.FC = () => {
             </button>
           );
         })}
-      </div>
-      <div className="flex justify-center items-start">
-        <button className="px-20 py-3 font-semibold text-white rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-300 mt-5">
-          Claim
-        </button>
       </div>
     </div>
   );
