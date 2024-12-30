@@ -30,7 +30,7 @@ const Calendar: React.FC = () => {
 
   const [activeDay, setActiveDay] = useState<number | null>(null);
   const [bonus, setBonus] = useState<number>(0);
-
+  console.log('bonus' ,bonus)
   const fetchActiveDay = async () => {
     try {
       const response = await axios.get('api/activeDay', {});
