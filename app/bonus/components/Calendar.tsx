@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import GradientCircle from './GradientCircle';
 import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
@@ -22,15 +21,14 @@ const calculateBonus = (day: number): number => {
 const Calendar: React.FC = () => {
   const daysWithBonuses: DayWithBonus[] = Array.from(
     { length: DAYS_COUNT },
-    (_, i) => ({
-      day: i + 1,
-      bonus: calculateBonus(i + 1),
-    })
+    (_, i) => ({ day: i + 1, bonus: calculateBonus(i + 1) })
   );
 
   const [activeDay, setActiveDay] = useState<number | null>(null);
   const [bonus, setBonus] = useState<number>(0);
-  console.log('bonus' ,bonus)
+
+  console.log('bonus', bonus);
+
   const fetchActiveDay = async () => {
     try {
       const response = await axios.get('api/activeDay', {});
@@ -64,16 +62,13 @@ const Calendar: React.FC = () => {
           progress: undefined,
           theme: 'colored',
         });
-
         setBonus((prev) => prev + currentBonus);
         fetchActiveDay(); // Refresh the active day
       }
     } catch (error) {
       console.error('Error updating day:', error);
-
       if (axios.isAxiosError(error)) {
         const status = error.response ? error.response.status : null;
-
         if (status === 500) {
           toast.error('24 hours are not over yet', {
             position: 'top-right',
@@ -90,16 +85,20 @@ const Calendar: React.FC = () => {
     }
   };
 
+  const handleClaim = () => {
+    if (activeDay !== null) {
+      const activeBonus = daysWithBonuses.find((day) => day.day === activeDay)?.bonus || 0;
+      handleNextDay(activeDay, activeBonus);
+    }
+  };
+
   return (
     <div className="p-4 pt-8 flex flex-col items-center justify-center">
       <ToastContainer />
       <div className="mb-5">
         <CalendarMonthSharpIcon fontSize="large" sx={{ color: blue[500] }} />
       </div>
-
-      <h2 className="text-center text-2xl font-semibold text-blue-200 mb-4">
-        Daily reward
-      </h2>
+      <h2 className="text-center text-2xl font-semibold text-blue-200 mb-4">Daily reward</h2>
       <p className="text-center text-sm text-gray-400 mb-10">
         Description of the daily reward goes here in smaller font.
       </p>
@@ -124,6 +123,12 @@ const Calendar: React.FC = () => {
             </button>
           );
         })}
+        <button
+          className="px-20 py-3 font-semibold text-white rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-300 mt-2"
+          onClick={handleClaim}
+        >
+          Claim
+        </button>
       </div>
     </div>
   );
